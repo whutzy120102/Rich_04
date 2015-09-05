@@ -1,17 +1,18 @@
-package com.zy1202.rich04.view;
-
+package com.rich.Util;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
 public class SwingConsole {
 
 	/**
-	 * @param args
+	 * @param nifengchao
 	 */
-	public static void run(final JFrame f,final int width,final int height){
+	public static void run(final JFrame f,final JLayeredPane jlayeredPane,final int width,final int height){
 		SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
+					f.setLayeredPane(jlayeredPane);  
 					f.setTitle(f.getClass().getSimpleName());
 					f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					f.setSize(width,height);
