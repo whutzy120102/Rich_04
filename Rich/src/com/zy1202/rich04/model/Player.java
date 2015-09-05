@@ -1,7 +1,10 @@
 package com.zy1202.rich04.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JLabel;
 
 import com.zy1202.rich04.biz.IPlayerBiz;
 import com.zy1202.rich04.bo.IPlayerBO;
@@ -11,15 +14,16 @@ public class Player implements IPlayerBO,IPlayerBiz{
 	private int id;
 	private String name;
 	private String ab;
-	private int color;
+	private Color color;
 	private Money money;
 	private int freeDay;
 	private int stopDay;
 	private int position;
 	private List<Prop> props;
+	private JLabel label;
 	
 	
-	public Player(int id, String name, String ab, int color, Money money) {
+	public Player(int id, String name, String ab, Color color, Money money,JLabel label) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -30,6 +34,7 @@ public class Player implements IPlayerBO,IPlayerBiz{
 		this.stopDay=0;
 		this.position=0;
 		this.props=new ArrayList<Prop>();
+		this.label=label;
 	}
 
 	@Override
@@ -131,17 +136,28 @@ public class Player implements IPlayerBO,IPlayerBiz{
 	}
 
 	@Override
-	public void setColor(int color) {
+	public void setColor(Color color) {
 		// TODO Auto-generated method stub
 		this.color=color;
 	}
 
 	@Override
-	public int getColor() {
+	public Color getColor() {
 		// TODO Auto-generated method stub
 		return color;
 	}
 
+	@Override
+	public JLabel getLabel() {
+		// TODO Auto-generated method stub
+		return label;
+	}
+	
+	@Override
+	public void setLabel(JLabel label) {
+		// TODO Auto-generated method stub
+		this.label=label;
+	}
 	@Override
 	public void setMoney(Money money) {
 		// TODO Auto-generated method stub
