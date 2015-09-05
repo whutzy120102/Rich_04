@@ -5,14 +5,12 @@ import com.zy1202.rich04.bo.IHouseBO;
 
 public class House implements IHouseBO,IHouseBiz{
 
-	private int id;
 	private int rank;
 	private int price;
 	
 		
-	public House(int id, int price) {
+	public House(int price) {
 		super();
-		this.id = id;
 		this.rank = 0;
 		this.price = price;
 	}
@@ -24,17 +22,6 @@ public class House implements IHouseBO,IHouseBiz{
 		return rank;
 	}
 
-	@Override
-	public void setId(int id) {
-		// TODO Auto-generated method stub
-		this.id=id;
-	}
-
-	@Override
-	public int getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
 
 	@Override
 	public void setRank(int rank) {
