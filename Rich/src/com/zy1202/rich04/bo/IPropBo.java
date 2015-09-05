@@ -5,4 +5,6 @@ public interface IPropBo {
 	String getName();
 	void setIntroduce(String Introduce);
 	String getIntroduce();
+	void setPoint(int point);
+	int getPoint();
 }

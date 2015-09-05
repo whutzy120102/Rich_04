@@ -19,7 +19,7 @@ public class StartGame_View extends JFrame{
 	 * @param nifengchao
 	 */
 
-
+		static JFrame startFrame;
 	    JLayeredPane layeredPane_1,layeredPane_2;  
 	    JPanel jp_1,jp_2;  
 	    JLabel jl_1,jl_2;  
@@ -48,7 +48,8 @@ public class StartGame_View extends JFrame{
 	    
 	    public static void main(String[] args)  
 	    {  
-	    	new StartGame_View();  
+	    	startFrame=new StartGame_View();  
+	    	
 	    	
 	    }
 	
@@ -82,6 +83,8 @@ public class StartGame_View extends JFrame{
 				for(Player player:GameManager.getPlayers()){
 					System.out.println(player.toString());
 				}
+				startFrame.setVisible(false);
+				new MapFrame();
 			}
 	    }
 	    

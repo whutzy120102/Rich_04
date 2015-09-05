@@ -2,7 +2,7 @@ package com.zy1202.rich04.model;
 
 import com.zy1202.rich04.bo.IGiftBO;
 
-public abstract class Gift implements IGiftBO{
+public  class Gift implements IGiftBO{
 	
 	public final static int CASH=1;
 	public final static int POINT=2;
@@ -13,8 +13,9 @@ public abstract class Gift implements IGiftBO{
 	private String introduce;
 		
 
-	public Gift(String name, String introduce) {
+	public Gift(int id,String name, String introduce) {
 		super();
+		this.id=id;
 		this.name = name;
 		this.introduce = introduce;
 	}

@@ -83,8 +83,9 @@ public class Player implements IPlayerBO,IPlayerBiz{
 	@Override
 	public int throwDice() {
 		// TODO Auto-generated method stub
-		
-		return (int)((Math.random())*6)+1;
+		java.util.Random random=new java.util.Random();
+   	 	int randomNum=random.nextInt(6)+1;
+		return randomNum;
 	}
 
 	@Override

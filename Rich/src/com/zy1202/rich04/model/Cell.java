@@ -5,6 +5,15 @@ import com.zy1202.rich04.bo.ICellBO;
 
 public class Cell implements ICellBO,ICellBiz{
 	
+	public static final String GIFT="GiftCell";
+	public static final String HOSPITAL="HospitalCell";
+	public static final String HOUSE="HouseCell";
+	public static final String MAGIC="MagicCell";
+	public static final String MINE="MineCell";
+	public static final String PRISION="PrisonCell";
+	public static final String PROP="PropCell";
+	public static final String START="Cell";
+	
 	private String type;
 	private int bombNum;
 	private int roadBlockNum;
