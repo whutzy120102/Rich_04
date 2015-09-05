@@ -1,5 +1,6 @@
-﻿package com.rich.View;
-import static com.rich.Util.SwingConsole.run;
+﻿package com.zy1202.rich04.view;
+
+
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -7,7 +8,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;  
 
-import javax.swing.JFrame;
+import com.zy1202.rich04.manager.GameManager;
+import com.zy1202.rich04.model.Money;
+import com.zy1202.rich04.model.Player;
 
 
 public class StartGame_View extends JFrame{
@@ -16,7 +19,7 @@ public class StartGame_View extends JFrame{
 	 * @param nifengchao
 	 */
 
-
+		static JFrame startFrame;
 	    JLayeredPane layeredPane_1,layeredPane_2;  
 	    JPanel jp_1,jp_2;  
 	    JLabel jl_1,jl_2;  
@@ -45,7 +48,8 @@ public class StartGame_View extends JFrame{
 	    
 	    public static void main(String[] args)  
 	    {  
-	    	new StartGame_View();  
+	    	startFrame=new StartGame_View();  
+	    	
 	    	
 	    }
 	
@@ -79,6 +83,8 @@ public class StartGame_View extends JFrame{
 				for(Player player:GameManager.getPlayers()){
 					System.out.println(player.toString());
 				}
+				startFrame.setVisible(false);
+				new MapFrame();
 			}
 	    }
 	    
@@ -225,7 +231,7 @@ public class StartGame_View extends JFrame{
 	    	layeredPane_2.add(reset_bt,JLayeredPane.PALETTE_LAYER);
 
 	    	System.out.println(background_2.getIconWidth()+" "+background_2.getIconHeight());
-	        run(this,layeredPane_2,background_2.getIconWidth(),background_2.getIconHeight());
+	        SwingConsole.run(this,layeredPane_2,background_2.getIconWidth(),background_2.getIconHeight());
 			return w;
 	    }
 	    
@@ -269,7 +275,7 @@ public class StartGame_View extends JFrame{
 	        layeredPane_1.add(jb1,JLayeredPane.PALETTE_LAYER);  
 	        layeredPane_1.add(jb2,JLayeredPane.PALETTE_LAYER);
 	        layeredPane_1.add(jb3,JLayeredPane.PALETTE_LAYER);
-	        run(this,layeredPane_1,background_1.getIconWidth(),background_1.getIconHeight());
+	        SwingConsole.run(this,layeredPane_1,background_1.getIconWidth(),background_1.getIconHeight());
 	        
 		}  
 	}  

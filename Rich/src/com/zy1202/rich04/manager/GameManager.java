@@ -6,11 +6,12 @@ import java.util.List;
 import com.zy1202.rich04.bo.IPlayerBO;
 import com.zy1202.rich04.model.Cell;
 import com.zy1202.rich04.model.Player;
+import com.zy1202.rich04.view.CellView;
 
 public class GameManager {
 	private List<Player> players;
 	private int currentPlayer;
-	private List<Cell> map;
+	private List<CellView> map;
 	private static GameManager ourInstance;
 	
 	
@@ -73,11 +74,11 @@ public class GameManager {
 		
 	}
 	
-	private void _initMap(){
-		
+	private void _initMap(List<CellView> cellViews){
+		this.map=cellViews;
 	}
 	
-	private List<Cell> _getMap(){
+	private List<CellView> _getMap(){
 		return map;
 	}
 	
@@ -112,15 +113,15 @@ public class GameManager {
 		getInstance()._toNextPlayer();
 	}
 	
-	public static void initMap(){
-		getInstance()._initMap();
+	public static void initMap(List<CellView> cellViews){
+		getInstance()._initMap(cellViews);
 	}
 	
 	public static String getHelp(){
 		return getInstance()._getHelp();
 	}
 	
-	public static List<Cell> getMap(){
+	public static List<CellView> getMap(){
 		return getInstance()._getMap();
 	}
 	

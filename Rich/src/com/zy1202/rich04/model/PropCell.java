@@ -15,13 +15,13 @@ public class PropCell extends Cell implements IPropCellBO{
 	@Override
 	public void setProps(List<Prop> props) {
 		// TODO Auto-generated method stub
-		
+		this.props=props;
 	}
 
 	@Override
 	public List<Prop> getProps() {
 		// TODO Auto-generated method stub
-		return null;
+		return props;
 	}
 
 }
