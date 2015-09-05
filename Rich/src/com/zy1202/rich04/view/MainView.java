@@ -1,4 +1,4 @@
-package com.rich.View;
+package com.zy1202.rich04.view;
 
 
 
