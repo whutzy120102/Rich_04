@@ -1,5 +1,6 @@
 package com.zy1202.rich04.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.zy1202.rich04.biz.IMoneyBiz;
@@ -11,11 +12,11 @@ public class Money implements IMoneyBO,IMoneyBiz{
 	private List<House> houses; 
 	
 	
-	public Money(int cash, int point, List<House> houses) {
+	public Money(int cash, int point) {
 		super();
 		this.cash = cash;
 		this.point = point;
-		this.houses = houses;
+		this.houses = new ArrayList<House>();
 	}
 
 	@Override
@@ -114,4 +115,11 @@ public class Money implements IMoneyBO,IMoneyBiz{
 		return houses;
 	}
 
+	@Override
+	public String toString() {
+		return "Money [cash=" + cash + ", point=" + point + ", houses="
+				+ houses + "]";
+	}
+	
+	
 }
