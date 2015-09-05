@@ -3,6 +3,7 @@ package com.zy1202.rich04.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zy1202.rich04.bo.IPlayerBO;
 import com.zy1202.rich04.model.Cell;
 import com.zy1202.rich04.model.Player;
 
@@ -21,11 +22,7 @@ public class GameManager {
 	
 	public static GameManager getInstance(){
 		if(ourInstance==null){
-			synchronized (ourInstance) {
-				if(ourInstance==null){
 				ourInstance=new GameManager();
-				}
-			}
 		}
 		return ourInstance;
 	}
@@ -44,6 +41,12 @@ public class GameManager {
 		players.add(player);
 	}
 	
+	private void _setCash(int cash){
+		for(IPlayerBO playerBO:players){
+			playerBO.getMoney().setCash(cash);
+		}
+	}
+	
 	private void _deletePlayer(Player player){
 		players.remove(player);
 	}
@@ -60,7 +63,7 @@ public class GameManager {
 		}
 		
 		while(players.get(currentPlayer).isStop()==true){
-			players.get(currentPlayer).reduceStopDay(1);  //如果这时玩家被跳过回合，则减少停止回合1
+			players.get(currentPlayer).reduceStopDay(1);
 			if(currentPlayer==players.size()-1){
 				currentPlayer=0;
 			}else{
@@ -84,7 +87,7 @@ public class GameManager {
 	
 	
 	/**
-	 * 对外公布方法
+	 * 鍏竷鏂规硶
 	 */
 	public static Player getCurrentPlayer(){
 		return getInstance()._getCurrentPlayer();
@@ -94,6 +97,9 @@ public class GameManager {
 		getInstance()._addPlayer(player);
 	}
 	
+	public static void setCash(int cash){
+		getInstance()._setCash(cash);
+	}
 	public static void deletePlayer(Player player){
 		getInstance()._deletePlayer(player);
 	}

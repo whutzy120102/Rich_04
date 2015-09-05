@@ -201,4 +201,14 @@ public class Player implements IPlayerBO,IPlayerBiz{
 		return props;
 	}
 
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", name=" + name + ", ab=" + ab
+				+ ", color=" + color + ", money=" + money.toString() + ", freeDay="
+				+ freeDay + ", stopDay=" + stopDay + ", position=" + position
+				+ ", props=" + props + "]";
+	}
+	
+	
+
 }
