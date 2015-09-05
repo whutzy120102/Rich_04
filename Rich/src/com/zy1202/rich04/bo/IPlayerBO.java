@@ -1,6 +1,9 @@
 package com.zy1202.rich04.bo;
 
+import java.awt.Color;
 import java.util.List;
+
+import javax.swing.JLabel;
 
 import com.zy1202.rich04.model.Money;
 import com.zy1202.rich04.model.Prop;
@@ -12,10 +15,13 @@ public interface IPlayerBO {
 	String getName();
 	void setAb(String ab);
 	String getAb();
-	void setColor(int color);
-	int getColor();
+	void setColor(Color color);
+	Color getColor();
 	void setMoney(Money money);
 	Money getMoney();
+	void setLabel(JLabel label);
+	JLabel getLabel();
+	
 	void setFreeDay(int freeDay);
 	int getFreeDay();
 	void setStopDay(int stopDay);
