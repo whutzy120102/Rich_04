@@ -1,4 +1,4 @@
-package com.rich.Util;
+package com.rich.View;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
