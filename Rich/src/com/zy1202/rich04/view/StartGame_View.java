@@ -1,5 +1,5 @@
-package com.zy1202.rich04.view;
-
+﻿package com.rich.View;
+import static com.rich.Util.SwingConsole.run;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -7,15 +7,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;  
 
-import com.zy1202.rich04.manager.GameManager;
-import com.zy1202.rich04.model.Money;
-import com.zy1202.rich04.model.Player;
+import javax.swing.JFrame;
 
 
 public class StartGame_View extends JFrame{
 
 	/**
-	 * @param args
+	 * @param nifengchao
 	 */
 
 
@@ -36,8 +34,6 @@ public class StartGame_View extends JFrame{
 	    int n2;//规定的人数
 	    //金额
 	    int w;
-	    //获取的金额区间
-	    String sw;
 	    
 	    private ButtonListener_1 bl = new ButtonListener_1();
 	    
@@ -68,8 +64,7 @@ public class StartGame_View extends JFrame{
 				case 293:n2=3;break;
 				case 346:n2=4;break;
 				}
-				sw = "1000-2000";
-				init_2(sw);
+				init_2();
 			}
 		}
 	    
@@ -126,8 +121,7 @@ public class StartGame_View extends JFrame{
 						Player player=new Player(1, "pjh", "p", 14, new Money(0,0));
 						GameManager.addPlayer(player);
 						break;
-					}
-					}
+					}					}
 				}
 			}
 	    }
@@ -145,7 +139,7 @@ public class StartGame_View extends JFrame{
 			}
 	    }
 	    
-	    public int init_2(String sw){
+	    public int init_2(){
 	    	layeredPane_1.removeAll();
 	    	this.repaint();
 	    	background_2 = new ImageIcon("pic/background_2.jpg");
@@ -160,8 +154,7 @@ public class StartGame_View extends JFrame{
 	    	jtf.setBounds(200, 325, 200, 30);
 	    	
 	    	
-	    	
-	    	tA = new JLabel(" 提示：输入金额"+sw);
+	    	tA = new JLabel(" 提示：输入金额1000-50000");
 	    	tA.setBounds(200+jtf.getWidth(), 325, 400,30);
 	    	
 	    	
@@ -231,12 +224,8 @@ public class StartGame_View extends JFrame{
 	    	layeredPane_2.add(aname_4,JLayeredPane.PALETTE_LAYER);
 	    	layeredPane_2.add(reset_bt,JLayeredPane.PALETTE_LAYER);
 
-	    	
-	    	
-	    	this.setLayeredPane(layeredPane_2);
-	        this.setSize(background_2.getIconWidth(),background_2.getIconHeight());  
-	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-	        this.setVisible(true);
+	    	System.out.println(background_2.getIconWidth()+" "+background_2.getIconHeight());
+	        run(this,layeredPane_2,background_2.getIconWidth(),background_2.getIconHeight());
 			return w;
 	    }
 	    
@@ -280,10 +269,8 @@ public class StartGame_View extends JFrame{
 	        layeredPane_1.add(jb1,JLayeredPane.PALETTE_LAYER);  
 	        layeredPane_1.add(jb2,JLayeredPane.PALETTE_LAYER);
 	        layeredPane_1.add(jb3,JLayeredPane.PALETTE_LAYER);
-	        this.setLayeredPane(layeredPane_1);  
-	        this.setSize(background_1.getIconWidth(),background_1.getIconHeight());  
-	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-	        this.setVisible(true);
+	        run(this,layeredPane_1,background_1.getIconWidth(),background_1.getIconHeight());
+	        
 		}  
 	}  
 
