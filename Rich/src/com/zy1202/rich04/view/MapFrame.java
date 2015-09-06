@@ -41,7 +41,6 @@ import com.zy1202.rich04.model.RoadBlock;
 
 public class MapFrame {
 	private List<CellView> eachLocation;
-	private JFrame frame;
 	private JPanel panel;
 	private JButton btn;
 //	private JButton btnOver;
@@ -51,7 +50,6 @@ public class MapFrame {
 	public MapFrame(){
 		eachLocation=initCell();
 		GameManager.initMap(eachLocation);
-		frame=new JFrame();
 		panel=null;
 		btn=new JButton();
 //		btnOver=new JButton("结束回合");
@@ -59,19 +57,19 @@ public class MapFrame {
 	}
 	
 	public JPanel doMain(){
-		frame.setTitle("");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(908, 608);
+//		frame.setTitle("");
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setSize(908, 608);
 		
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕对象
 
 		//frame.getSize();//获取frame尺寸
 
-		int w=(screen.width-frame.getWidth())/2;
-		int h=(screen.height-frame.getHeight())/2;
-		
-
-		frame.setLocation(w,h);
+//		int w=(screen.width-frame.getWidth())/2;
+//		int h=(screen.height-frame.getHeight())/2;
+//		
+//
+//		frame.setLocation(w,h);
 		
 		panel = new JPanel() {  
             protected void paintComponent(Graphics g) {  
@@ -83,7 +81,7 @@ public class MapFrame {
   
         };  
 		panel.setSize(908,608);
-		frame.setVisible(true);
+//		frame.setVisible(true);
 		
 		Player player=null;
 		Iterator it=GameManager.getPlayers().iterator();
@@ -103,7 +101,7 @@ public class MapFrame {
 		panel.add(btn);
 //		panel.add(btnOver);
 		panel.setLayout(null);
-		frame.add(panel);
+//		frame.add(panel);
 		
 		
 		return panel;

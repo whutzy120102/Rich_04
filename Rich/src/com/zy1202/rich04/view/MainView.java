@@ -113,12 +113,12 @@ import com.zy1202.rich04.model.Player;
 			
 		});
 		*/
-		actor_pic = new ImageIcon("pic/actornow_01.jpg");
+		actor_pic = new ImageIcon("pic/actornow_0"+GameManager.getCurrentPlayer().getId()+".jpg");
 		actor_now = new JLabel(actor_pic);
 		actor_now.setBounds(70,150, actor_pic.getIconWidth(), actor_pic.getIconHeight());
 		
 		j1 = new JLabel("资金:"+GameManager.getCurrentPlayer().getMoney().getCash());
-		j2 = new JLabel("点数:100"+GameManager.getCurrentPlayer().getMoney().getPoint());
+		j2 = new JLabel("点数:"+GameManager.getCurrentPlayer().getMoney().getPoint());
 		j1.setBounds(100, 140+actor_pic.getIconHeight(),100, 50);
 		j2.setBounds(100, 160+actor_pic.getIconHeight(),100, 50);
 		
@@ -254,7 +254,7 @@ import com.zy1202.rich04.model.Player;
 	
 	
 	public void init_LeftView(){
-		jsplitPaneTextTwo.setDividerLocation(608);  
+		jsplitPaneTextTwo.setDividerLocation(570);  
 		//设置分隔条的大小  
 		jsplitPaneTextTwo.setDividerSize(1);  
 		//快速展开/折叠分隔条（默认为false）  
@@ -276,7 +276,7 @@ import com.zy1202.rich04.model.Player;
 		
 		
 		jsplitPaneTextTwo.setLeftComponent(mapPanel);  
-		jsplitPaneTextTwo.setRightComponent(new JLabel("下面"));
+		jsplitPaneTextTwo.setRightComponent(new Exam4().bottomBut());
 		jsplitPaneTestOne.setLeftComponent(jsplitPaneTextTwo);
 		
 		
