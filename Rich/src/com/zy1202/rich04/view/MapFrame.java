@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
+import java.util.Iterator;
 import java.util.List;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -42,6 +43,7 @@ public class MapFrame {
 	private JButton btn;
 	private JButton btnOver;
 	private JLabel label;
+
 	
 	public MapFrame(){
 		eachLocation=initCell();
@@ -50,7 +52,7 @@ public class MapFrame {
 		panel=null;
 		btn=new JButton();
 		btnOver=new JButton("结束回合");
-		label=new JLabel();
+		//label=new JLabel();
 		doMain();
 	}
 	
@@ -86,10 +88,23 @@ public class MapFrame {
 		frame.setVisible(true);
 		
 		//获取玩家数量
-		int playerCount=GameManager.getPlayers().size();
-		label.setOpaque(true);
-		label.setBackground(Color.YELLOW);
-		label.setBounds(78,524, 5,5);
+//		int playerCount=GameManager.getPlayers().size();
+//		switch(playerCount){
+//		case 1:;break;
+//		case 2:;break;
+//		case 3:;break;
+//		case 4:;break;
+//		default:System.out.println("Error occerred");
+//		}
+		Player player=null;
+		Iterator it=GameManager.getPlayers().iterator();
+		while(it.hasNext()){
+			player=(Player) it.next();
+			panel.add(player.getLabel());
+		}
+//		label.setOpaque(true);
+//		label.setBackground(Color.YELLOW);
+//		label.setBounds(78,524, 5,5);
 		btn.setBounds(370, 319, 120, 120);
 		btn.setMargin(new Insets(0, 0, 0, -10));
 		btn.setBorderPainted(false);
@@ -97,7 +112,8 @@ public class MapFrame {
 		//ImageIcon iconBeginBtn = new ImageIcon("f:\\dice.png");  
 		//btn.setIcon(iconBeginBtn);
 		btnOver.setBounds(620, 119, 110, 20);
-		panel.add(label);
+		//panel.add(label);
+		
 		panel.add(btn);
 		panel.add(btnOver);
 		panel.setLayout(null);
@@ -107,27 +123,26 @@ public class MapFrame {
 					new Thread() {
 					    public void run() {
 
-					    	
-					     int x=label.getX();
-				    	 int y=label.getY();
+					     //int x=label.getX();
+				    	 //int y=label.getY();
 				    	 //TODO 添加人物 通过Player的throwDice获取随机数
 				    	 java.util.Random random=new java.util.Random();
 				    	 //int randomNum=random.nextInt(6)+1;
 				    	 int randomNum=GameManager.getCurrentPlayer().throwDice();
 				    	 
 				    	 Player player=GameManager.getCurrentPlayer();
+				    	 label=player.getLabel();
 				    	 int position=player.getPosition();
 					     for(int i=0;i<randomNum;i++){
 					    	 
-					    		 
 					    	 position++;
 					    	 if(position>69)
 					    		 position=0;
 					    	 player.setPositioin(position);
-					    	 x=label.getX()+20;
-					    	 y=label.getY();
+					    	 //x=label.getX()+20;
+					    	 //y=label.getY();
 					    	 label.setLocation(eachLocation.get(position).getX(),eachLocation.get(position).getY());
-					    	 label.setBackground(Color.BLACK);
+					    	 //label.setBackground(Color.BLACK);
 					    	 //btn.setText(randomNum+"");
 					    	 String filePath=null;
 					    	 switch(randomNum){
@@ -148,6 +163,35 @@ public class MapFrame {
 					    	 }
 					    	 try { sleep(200); } catch(Exception ex) {}
 					     
+					     }
+					     switch(GameManager.getMap().get(player.getPosition()).getCell().getType()){
+					     	case Cell.HOSPITAL:{
+					     		// HospitalCell cell=(HospitalCell)GameManager.getMap().get(GameManager.getCurrentPlayer().getPosition()).getCell();
+					     		break;}
+					     	case Cell.HOUSE:{
+					     		HouseCell cell=(HouseCell)GameManager.getMap().get(player.getPosition()).getCell();
+					    	 	if(cell.hasOwner()){//土地有主
+					    		 	if(cell.getOwner().equals(player)){
+					    			 	//TODO 弹框提示升级
+					    		 	}else{//收过路费
+					    		 		player.getMoney().reduceCash(cell.getHouse().getPrice()/2);
+					    		 	}
+					    	 	}else{//空地
+					    	 		//TODO 问他买不买
+					    	 		
+					    	 	}
+					    	 	break;}
+					     	case Cell.MAGIC:{break;}
+					     	case Cell.MINE:{
+					    	 MineCell cell=(MineCell)GameManager.getMap().get(player.getPosition()).getCell();
+					    	 player.getMoney().addPoint(cell.getPoint());
+					    	 break;}
+					     	case Cell.PRISION:{
+					    	 player.addStopDay(2);
+					    	 break;}
+					     case Cell.PROP:{break;}
+					     case Cell.START:{break;}
+					     default:System.out.println("Error occerred");
 					     }
 					    }
 					   }.start();

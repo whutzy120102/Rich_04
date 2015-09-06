@@ -1,5 +1,4 @@
-﻿package com.zy1202.rich04.view;
-
+package com.zy1202.rich04.view;
 
 
 import java.awt.Color;
@@ -100,9 +99,13 @@ public class StartGame_View extends JFrame{
 					int i = ((JButton)e.getSource()).getX();
 					switch(i){
 					case 210:{
-						aname_1.setForeground(Color.RED);
+						aname_1.setForeground(Color.BLUE);
 						n++;
-						Player player=new Player(1, "banzi", "b", 11, new Money(0, 0));
+						JLabel label_1=new JLabel();
+						label_1.setOpaque(true);
+						label_1.setBackground(Color.BLUE);
+						label_1.setBounds(75,80, 5,5);
+						Player player=new Player(1, "banzi", "b", Color.BLUE, new Money(0, 0),label_1);
 						GameManager.addPlayer(player);
 						break;
 					}
@@ -110,21 +113,33 @@ public class StartGame_View extends JFrame{
 					case 343:{
 						aname_2.setForeground(Color.RED);
 						n++;
-						Player player=new Player(2, "yc", "y", 12, new Money(0, 0));
+						JLabel label_2=new JLabel();
+						label_2.setOpaque(true);
+						label_2.setBackground(Color.RED);
+						label_2.setBounds(75,80, 5,5);
+						Player player=new Player(2, "yc", "y", Color.RED, new Money(0, 0),label_2);
 						GameManager.addPlayer(player);
 						break;
 					}
 					case 476:{
-						aname_3.setForeground(Color.RED);
+						aname_3.setForeground(Color.yellow);
 						n++;
-						Player player=new Player(3, "wgl", "w", 13, new Money(0,0));
+						JLabel label_3=new JLabel();
+						label_3.setOpaque(true);
+						label_3.setBackground(Color.YELLOW);
+						label_3.setBounds(75,80, 5,5);
+						Player player=new Player(3, "wgl", "w", Color.YELLOW, new Money(0,0),label_3);
 						GameManager.addPlayer(player);
 						break;
 					}
 					case 609:{
-						aname_4.setForeground(Color.RED);
+						aname_4.setForeground(Color.GREEN);
 						n++;
-						Player player=new Player(1, "pjh", "p", 14, new Money(0,0));
+						JLabel label_4=new JLabel();
+						label_4.setOpaque(true);
+						label_4.setBackground(Color.GREEN);
+						label_4.setBounds(75,80, 5,5);
+						Player player=new Player(1, "pjh", "p", Color.GREEN, new Money(0,0),label_4);
 						GameManager.addPlayer(player);
 						break;
 					}					}
@@ -230,6 +245,8 @@ public class StartGame_View extends JFrame{
 	    	layeredPane_2.add(aname_4,JLayeredPane.PALETTE_LAYER);
 	    	layeredPane_2.add(reset_bt,JLayeredPane.PALETTE_LAYER);
 
+	    	
+	    	
 	    	System.out.println(background_2.getIconWidth()+" "+background_2.getIconHeight());
 	        SwingConsole.run(this,layeredPane_2,background_2.getIconWidth(),background_2.getIconHeight());
 			return w;
