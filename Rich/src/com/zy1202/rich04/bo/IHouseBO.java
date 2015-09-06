@@ -5,4 +5,5 @@ public interface IHouseBO {
 	int getRank();
 	void setPrice(int price);
 	int getPrice();
+	int getUpPrice();
 }
