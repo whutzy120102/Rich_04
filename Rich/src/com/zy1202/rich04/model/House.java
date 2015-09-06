@@ -7,18 +7,21 @@ public class House implements IHouseBO,IHouseBiz{
 
 	private int rank;
 	private int price;
+	private int upPrice;
 	
 		
 	public House(int price) {
 		super();
 		this.rank = 0;
 		this.price = price;
+		this.upPrice=price;
 	}
 
 	@Override
+	// TODO Auto-generated method stub
 	public int upRank() {
-		// TODO Auto-generated method stub
 		rank++;
+		this.price+=upPrice;
 		return rank;
 	}
 

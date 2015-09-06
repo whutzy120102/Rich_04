@@ -2,8 +2,6 @@ package com.zy1202.rich04.view;
 
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -171,6 +169,7 @@ import javax.swing.JSplitPane;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//帮助点击事件响应
+				new Help_View();
 			}
 		});
 		
@@ -184,10 +183,12 @@ import javax.swing.JSplitPane;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//退出点击事件响应
+				new Exit_View();
+				
+				
+				
 			}
 		});
-		
-		
 		
 		
 		layeredPane_1.add(jl_2,JLayeredPane.DEFAULT_LAYER);
@@ -215,22 +216,24 @@ import javax.swing.JSplitPane;
 		//快速展开/折叠分隔条（默认为false）  
 		jsplitPaneTextTwo.setOneTouchExpandable(false);
 		house_pic = new ImageIcon("pic/background_1.jpg");
-		JPanel j  = new JPanel() {  
-  
-            protected void paintComponent(Graphics g) {  
-                ImageIcon icon = new ImageIcon("pic/background_1.jpg");  
-                Image img = icon.getImage();  
-                g.drawImage(img, 0, 0, icon.getIconWidth(),  
-                        icon.getIconHeight(), icon.getImageObserver());  
-            }  
-  
-        };  
+//		JPanel j  = new JPanel() {  
+//  
+//            protected void paintComponent(Graphics g) {  
+//                ImageIcon icon = new ImageIcon("pic/background_1.jpg");  
+//                Image img = icon.getImage();  
+//                g.drawImage(img, 0, 0, icon.getIconWidth(),  
+//                        icon.getIconHeight(), icon.getImageObserver());  
+//            }  
+//  
+//        };  
+		MapFrame mf=new MapFrame();
+		JPanel mapPanel=mf.doMain();
 
 		
 		
 		
 		
-		jsplitPaneTextTwo.setLeftComponent(j);  
+		jsplitPaneTextTwo.setLeftComponent(mapPanel);  
 		jsplitPaneTextTwo.setRightComponent(new JLabel("下面"));
 		jsplitPaneTestOne.setLeftComponent(jsplitPaneTextTwo);
 		
