@@ -30,8 +30,8 @@ public class Exam4{
 	public static void main(String[] args) {
 		//add players
 		Player player1=new Player(1, "banzi", "b", Color.BLUE, new Money(100, 0),null);
-		Player player2=new Player(2, "yc", "b", Color.BLUE, new Money(0, 0),null);
-		Player player3=new Player(3, "wgl", "b", Color.BLUE, new Money(100, 0),null);
+		Player player2=new Player(2, "yc", "b", Color.green, new Money(0, 0),null);
+		Player player3=new Player(3, "wgl", "b", Color.PINK, new Money(100, 0),null);
 		Player player4=new Player(4, "wgl", "b", Color.BLUE, new Money(100, 0),null);
 		
 		player1.getProps().add(new Bomb());
@@ -71,6 +71,7 @@ public class Exam4{
 		
 		JLabel lae=new JLabel();
 		lae.setText(players.get(i).getName());
+		lae.setForeground(players.get(i).getColor());
 		lae.setBounds(45+200*i,160,100,30);
 		Font fnt1=new Font("楷体",Font.BOLD,13);
 		lae.setFont(fnt1);
@@ -90,6 +91,7 @@ public class Exam4{
 				frame1.setTitle("玩家详细信息");            //第二个窗口
 				frame1.setLocation(250,250);
 				frame1.setSize(500,300);
+				frame1.setResizable(false);
 				frame1.setVisible(true);
 				
 				
@@ -129,12 +131,15 @@ public class Exam4{
 				
 				for(int i=0;i<player.getProps().size();i++){
 					btn[i].setText(player.getProps().get(i).getName());
+					btn[i].setForeground(Color.red);
+					Font font=new Font("宋体",Font.BOLD,15);
+					btn[i].setFont(font);
 				}
 				
-				lbl[0].setForeground(Color.BLUE);
-				lbl[3].setForeground(Color.BLUE);
-				lbl[5].setForeground(Color.BLUE);
-				Font fnt=new Font("楷体",Font.BOLD,20);
+				lbl[0].setForeground(Color.BLACK);
+				lbl[3].setForeground(Color.BLACK);
+				lbl[5].setForeground(Color.BLACK);
+				Font fnt=new Font("TimesRoman",Font.BOLD,17);
 				lbl[0].setFont(fnt);
 				lbl[3].setFont(fnt);
 				lbl[5].setFont(fnt);
