@@ -75,7 +75,7 @@ public class MapFrame {
 		
 		panel = new JPanel() {  
             protected void paintComponent(Graphics g) {  
-                ImageIcon icon = new ImageIcon("f:\\road.jpg");  
+                ImageIcon icon = new ImageIcon("pic/road.jpg");  
                 Image img = icon.getImage();  
                 g.drawImage(img, 0, 0, icon.getIconWidth(),  
                         icon.getIconHeight(), icon.getImageObserver());  
@@ -92,7 +92,7 @@ public class MapFrame {
 			panel.add(player.getLabel());
 		}
 
-		btn.setBounds(900, 319, 120, 120);
+		btn.setBounds(300, 319, 120, 120);
 		btn.setMargin(new Insets(0, 0, 0, -10));
 		btn.setBorderPainted(false);
 		//btn.setContentAreaFilled(false);
@@ -123,12 +123,12 @@ public class MapFrame {
 					    	 label.setLocation(eachLocation.get(position).getX(),eachLocation.get(position).getY());
 					    	 String filePath=null;
 					    	 switch(randomNum){
-					    	 	case 1:filePath="f:\\1.png";break;
-					    	 	case 2:filePath="f:\\2.png";break;
-					    	 	case 3:filePath="f:\\3.png";break;
-					    	 	case 4:filePath="f:\\4.png";break;
-					    	 	case 5:filePath="f:\\5.png";break;
-					    	 	case 6:filePath="f:\\6.png";break;
+					    	 	case 1:filePath="pic/1.png";break;
+					    	 	case 2:filePath="pic/2.png";break;
+					    	 	case 3:filePath="pic/3.png";break;
+					    	 	case 4:filePath="pic/4.png";break;
+					    	 	case 5:filePath="pic/5.png";break;
+					    	 	case 6:filePath="pic/6.png";break;
 					    	 }
 					    	 ImageIcon icon = new ImageIcon(filePath);  
 					    	 btn.setIcon(icon);
@@ -218,7 +218,7 @@ public class MapFrame {
 				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
 				    							else if(position>63&&position<70)
 				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
-				    							ImageIcon icon = new ImageIcon("f:\\"+player.getId()+"-1"+".png");  
+				    							ImageIcon icon = new ImageIcon("pic/"+player.getId()+"-1"+".png");  
 				    							label.setIcon(icon);
 				    							panel.add(label);
 				    							panel.repaint();
