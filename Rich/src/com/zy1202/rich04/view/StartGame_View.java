@@ -76,14 +76,31 @@ public class StartGame_View extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				w = Integer.parseInt(jtf.getText());
-				GameManager.setCash(w);
-				System.out.println(w);
-				for(Player player:GameManager.getPlayers()){
-					System.out.println(player.toString());
+				String s = jtf.getText();
+				if(n==n2){
+					if(s.matches( "^[0-9]{1,20}$")){
+						w = Integer.parseInt(jtf.getText());
+						System.out.println(w);
+						if(w>=1000&&w<=50000){
+							GameManager.setCash(w);
+							for(Player player:GameManager.getPlayers()){
+								System.out.println(player.toString());
+							}
+							startFrame.setVisible(false);
+							new MainView();
+						}else{
+							JOptionPane.showMessageDialog(null, "请输入规定金额数字", "输入金额", JOptionPane.ERROR_MESSAGE); 
+						}
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "请输入规定金额数字", "输入金额", JOptionPane.ERROR_MESSAGE); 
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "请选择足够的游戏人数", "选择角色", JOptionPane.ERROR_MESSAGE); 
+
 				}
-				startFrame.setVisible(false);
-				new MapFrame();
+				
+				
 			}
 	    }
 	    
@@ -231,7 +248,6 @@ public class StartGame_View extends JFrame{
 
 	    	
 	    	
-	    	System.out.println(background_2.getIconWidth()+" "+background_2.getIconHeight());
 	        SwingConsole.run(this,layeredPane_2,background_2.getIconWidth(),background_2.getIconHeight());
 			return w;
 	    }

@@ -2,8 +2,6 @@ package com.zy1202.rich04.view;
 
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -171,6 +169,7 @@ import javax.swing.JSplitPane;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//帮助点击事件响应
+				new Help_View();
 			}
 		});
 		
@@ -184,10 +183,12 @@ import javax.swing.JSplitPane;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//退出点击事件响应
+				new Exit_View();
+				
+				
+				
 			}
 		});
-		
-		
 		
 		
 		layeredPane_1.add(jl_2,JLayeredPane.DEFAULT_LAYER);
