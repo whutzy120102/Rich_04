@@ -56,10 +56,9 @@ public class MapFrame {
 		btn=new JButton();
 		btnOver=new JButton("结束回合");
 		//label=new JLabel();
-		doMain();
 	}
 	
-	public void doMain(){
+	public JPanel doMain(){
 		frame.setTitle("");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(908, 608);
@@ -80,8 +79,6 @@ public class MapFrame {
                 Image img = icon.getImage();  
                 g.drawImage(img, 0, 0, icon.getIconWidth(),  
                         icon.getIconHeight(), icon.getImageObserver());  
-                
-  
             }  
   
         };  
@@ -95,7 +92,7 @@ public class MapFrame {
 			panel.add(player.getLabel());
 		}
 
-		btn.setBounds(370, 319, 120, 120);
+		btn.setBounds(900, 319, 120, 120);
 		btn.setMargin(new Insets(0, 0, 0, -10));
 		btn.setBorderPainted(false);
 		//btn.setContentAreaFilled(false);
@@ -260,6 +257,7 @@ public class MapFrame {
 				GameManager.toNextPlayer();
 			}
 		});
+		return panel;
 	}
 	
 	private List initCell() {

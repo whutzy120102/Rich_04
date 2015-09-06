@@ -216,22 +216,24 @@ import javax.swing.JSplitPane;
 		//快速展开/折叠分隔条（默认为false）  
 		jsplitPaneTextTwo.setOneTouchExpandable(false);
 		house_pic = new ImageIcon("pic/background_1.jpg");
-		JPanel j  = new JPanel() {  
-  
-            protected void paintComponent(Graphics g) {  
-                ImageIcon icon = new ImageIcon("pic/background_1.jpg");  
-                Image img = icon.getImage();  
-                g.drawImage(img, 0, 0, icon.getIconWidth(),  
-                        icon.getIconHeight(), icon.getImageObserver());  
-            }  
-  
-        };  
+//		JPanel j  = new JPanel() {  
+//  
+//            protected void paintComponent(Graphics g) {  
+//                ImageIcon icon = new ImageIcon("pic/background_1.jpg");  
+//                Image img = icon.getImage();  
+//                g.drawImage(img, 0, 0, icon.getIconWidth(),  
+//                        icon.getIconHeight(), icon.getImageObserver());  
+//            }  
+//  
+//        };  
+		MapFrame mf=new MapFrame();
+		JPanel mapPanel=mf.doMain();
 
 		
 		
 		
 		
-		jsplitPaneTextTwo.setLeftComponent(j);  
+		jsplitPaneTextTwo.setLeftComponent(mapPanel);  
 		jsplitPaneTextTwo.setRightComponent(new JLabel("下面"));
 		jsplitPaneTestOne.setLeftComponent(jsplitPaneTextTwo);
 		
