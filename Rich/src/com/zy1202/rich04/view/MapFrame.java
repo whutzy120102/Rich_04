@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.zy1202.rich04.manager.GameManager;
@@ -60,7 +61,6 @@ public class MapFrame {
 	
 	public void doMain(){
 		frame.setTitle("");
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(908, 608);
 		
