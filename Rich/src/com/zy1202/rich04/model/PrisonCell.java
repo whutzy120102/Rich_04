@@ -4,6 +4,7 @@ public class PrisonCell extends Cell{
 
 	public PrisonCell(String type) {
 		super(type);
+		this.setName("监狱");
 		// TODO Auto-generated constructor stub
 	}
 	

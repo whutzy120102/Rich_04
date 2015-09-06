@@ -17,12 +17,14 @@ public class Cell implements ICellBO,ICellBiz{
 	private String type;
 	private int bombNum;
 	private int roadBlockNum;
+	private String name;
 				
 	public Cell(String type) {
 		super();
 		this.type = type;
 		this.bombNum = 0;
 		this.roadBlockNum = 0;
+		this.name="起点";
 	}
 
 	@Override
@@ -115,6 +117,18 @@ public class Cell implements ICellBO,ICellBiz{
 	public void moveAllRoadBlock() {
 		// TODO Auto-generated method stub
 		roadBlockNum=0;
+	}
+
+	@Override
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		this.name=name;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return this.name;
 	}
 
 }

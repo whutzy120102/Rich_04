@@ -122,7 +122,7 @@ public class StartGame_View extends JFrame{
 						label_1.setOpaque(true);
 						label_1.setBackground(Color.BLUE);
 						label_1.setBounds(75,80, 5,5);
-						Player player=new Player(1, "banzi", "b", Color.BLUE, new Money(0, 0),label_1);
+						Player player=new Player(1, "阿土伯", "b", Color.BLUE, new Money(0, 0),label_1);
 						GameManager.addPlayer(player);
 						break;
 					}
@@ -134,7 +134,7 @@ public class StartGame_View extends JFrame{
 						label_2.setOpaque(true);
 						label_2.setBackground(Color.RED);
 						label_2.setBounds(75,80, 5,5);
-						Player player=new Player(2, "yc", "y", Color.RED, new Money(0, 0),label_2);
+						Player player=new Player(2, "钱夫人", "y", Color.RED, new Money(0, 0),label_2);
 						GameManager.addPlayer(player);
 						break;
 					}
@@ -145,7 +145,7 @@ public class StartGame_View extends JFrame{
 						label_3.setOpaque(true);
 						label_3.setBackground(Color.YELLOW);
 						label_3.setBounds(75,80, 5,5);
-						Player player=new Player(3, "wgl", "w", Color.YELLOW, new Money(0,0),label_3);
+						Player player=new Player(3, "孙小美", "w", Color.YELLOW, new Money(0,0),label_3);
 						GameManager.addPlayer(player);
 						break;
 					}
@@ -156,7 +156,7 @@ public class StartGame_View extends JFrame{
 						label_4.setOpaque(true);
 						label_4.setBackground(Color.GREEN);
 						label_4.setBounds(75,80, 5,5);
-						Player player=new Player(1, "pjh", "p", Color.GREEN, new Money(0,0),label_4);
+						Player player=new Player(4, "金贝贝", "p", Color.GREEN, new Money(0,0),label_4);
 						GameManager.addPlayer(player);
 						break;
 					}					}
