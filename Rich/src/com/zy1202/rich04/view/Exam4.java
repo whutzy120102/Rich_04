@@ -23,25 +23,33 @@ public class Exam4{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Container container=frame.getContentPane();
-		container.setBackground(Color.gray);   //容器
+		container.setBackground(Color.white);   //容器
 		container.setLayout(null);
 		
 		JPanel pnl=new JPanel();
-		pnl.setSize(100,100);                  //面板
+		pnl.setSize(760,250);                  //面板
 		pnl.setBackground(Color.white);
-		pnl.setLocation(50,50);
+		pnl.setLocation(1,1);
 		
 		for(int i=0;i<=3;i++){
 		
 		JButton button =new JButton("" +i);
 		button.setSize(123,124);                                 //按钮  
 		button.setLocation(10+200*i,40);
-		ImageIcon icon=new ImageIcon("F:\\actor_"+(i+1)+".jpg");
+		ImageIcon icon=new ImageIcon("pic/actor_"+(i+1)+".jpg");
 		button.setIcon(icon);
+		
+		JLabel lae=new JLabel();
+		lae.setText("阿土伯");
+		lae.setBounds(45+200*i,160,100,30);
+		Font fnt1=new Font("楷体",Font.BOLD,13);
+		lae.setFont(fnt1);
 		
 		pnl.setLayout(null);
 		pnl.add(button);
+		pnl.add(lae);
 		container.add(button);
+		container.add(lae);
 		frame.setVisible(true);
 		
 		button.addActionListener(new ActionListener(){
