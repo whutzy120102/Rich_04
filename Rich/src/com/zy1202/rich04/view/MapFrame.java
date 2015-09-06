@@ -92,12 +92,12 @@ public class MapFrame {
 			panel.add(player.getLabel());
 		}
 
-		btn.setBounds(300, 319, 120, 120);
-		btn.setMargin(new Insets(0, 0, 0, -10));
+		btn.setBounds(370, 319, 120, 120);
+		btn.setMargin(new Insets(0, 0, 0, 0));
 		btn.setBorderPainted(false);
-		//btn.setContentAreaFilled(false);
-		//ImageIcon iconBeginBtn = new ImageIcon("f:\\dice.png");  
-		//btn.setIcon(iconBeginBtn);
+		btn.setContentAreaFilled(false);
+		ImageIcon iconBeginBtn = new ImageIcon("pic/dice.png");  
+		btn.setIcon(iconBeginBtn);
 //		btnOver.setBounds(620, 119, 110, 20);
 		
 		panel.add(btn);
@@ -182,8 +182,12 @@ public class MapFrame {
 				    					new ActionListener(){
 				    						public void actionPerformed(ActionEvent e){
 				    							player.getMoney().reduceCash(cell.getHouse().getPrice());
+				    							
 				    							lab_cash.setText("资金"+player.getMoney().getCash());
-
+				    							
+				    							if(player.getMoney().getCash()<=0){
+				    								
+				    							}
 				    							cell.getHouse().upRank();
 				    							player.getMoney().addHouse(cell.getHouse());
 				    							dialogUpdate.dispose();
