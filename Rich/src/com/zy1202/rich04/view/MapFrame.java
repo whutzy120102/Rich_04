@@ -203,7 +203,8 @@ public class MapFrame {
 				    		 		
 				    		 	}else{//收过路费
 				    		 		player.getMoney().reduceCash(cell.getHouse().getPrice()/2);
-	    							lab_cash.setText("资金"+player.getMoney().getCash());
+    								lab_cash.setText("资金"+player.getMoney().getCash());
+
 	    							
 	    							if(player.getMoney().getCash()>0){
 					    		 		ConfirmDialog dialogUpdate=new ConfirmDialog("您需要缴纳过路费： "+cell.getHouse().getPrice()/2);
@@ -213,7 +214,6 @@ public class MapFrame {
 					    				yesButton.addActionListener(
 					    					new ActionListener(){
 					    						public void actionPerformed(ActionEvent e){
-					    							player.getMoney().reduceCash(cell.getHouse().getPrice());
 					    							cell.getOwner().getMoney().addCash(cell.getHouse().getPrice());
 					    							dialogUpdate.dispose();
 					    						}});
