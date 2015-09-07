@@ -65,14 +65,14 @@ public class Exam4{
 		
 		JButton button =new JButton("" +i);
 		button.setSize(123,124);                                 //按钮  
-		button.setLocation(10+200*i,0);
+		button.setLocation(50+200*i,0);
 		ImageIcon icon=new ImageIcon("pic/actor_"+players.get(i).getId()+".jpg");
 		button.setIcon(icon);
 		button.setText(i+"");
 		
 		JLabel lae=new JLabel();
 		lae.setText(players.get(i).getName());
-		lae.setBounds(45+200*i,icon.getIconHeight()+1,100,30);
+		lae.setBounds(75+200*i,icon.getIconHeight()+1,100,30);
 		Font fnt1=new Font("楷体",Font.BOLD,13);
 		lae.setFont(fnt1);
 		lae.setForeground(players.get(i).getColor());

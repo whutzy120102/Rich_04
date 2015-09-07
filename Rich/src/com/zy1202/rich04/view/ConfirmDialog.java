@@ -17,7 +17,6 @@ public class ConfirmDialog extends JDialog{
 		
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕对象
 		this.setSize(300, 120);
-		this.getSize();//获取frame尺寸
 
 		int w=(screen.width-this.getWidth())/2;
 		int h=(screen.height-this.getHeight())/2+50;
