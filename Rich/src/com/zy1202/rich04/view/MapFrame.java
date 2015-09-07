@@ -40,8 +40,9 @@ import com.zy1202.rich04.model.PropCell;
 import com.zy1202.rich04.model.RoadBlock;
 
 public class MapFrame {
-	private List<CellView> eachLocation;
+	public List<CellView> eachLocation;
 	private List<JLabel> labelList;
+	
 	private JPanel panel;
 	private JButton btn;
 //	private JButton btnOver;
@@ -51,6 +52,7 @@ public class MapFrame {
 	public MapFrame(){
 		eachLocation=initCell();
 		labelList=initLabel();
+		
 		initLabel();
 		GameManager.initMap(eachLocation);
 		panel=null;
@@ -178,9 +180,9 @@ public class MapFrame {
 				    							if(position>=0&&position<=28)
 				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
 				    							else if(position>28&&position<=35)
-				    								label.setBounds(cellview.getX()+50, cellview.getY(), 25	, 25);
+				    								label.setBounds(cellview.getX()+30, cellview.getY()-7, 25	, 25);
 				    							else if(position>35&&position<=63)
-				    								label.setBounds(cellview.getX()-7, cellview.getY()+40, 25	, 25);
+				    								label.setBounds(cellview.getX()-12, cellview.getY()+24, 25	, 25);
 				    							else if(position>63&&position<70)
 				    								label.setBounds(cellview.getX()-50, cellview.getY()+40, 25	, 25);
 				    							ImageIcon icon = new ImageIcon("pic/"+player.getId()+"-"+rank+".png");  
@@ -205,7 +207,6 @@ public class MapFrame {
 				    		 		player.getMoney().reduceCash(cell.getHouse().getPrice()/2);
     								lab_cash.setText("资金"+player.getMoney().getCash());
 
-	    							
 	    							if(player.getMoney().getCash()>0){
 					    		 		ConfirmDialog dialogUpdate=new ConfirmDialog("您需要缴纳过路费： "+cell.getHouse().getPrice()/2);
 					    		 		JButton yesButton=new JButton("确定");
@@ -440,35 +441,14 @@ public class MapFrame {
 				    	 exitBtn.addActionListener(
 		    				new ActionListener(){
 								public void actionPerformed(ActionEvent arg0) {
-									JDialog dialog_=new ConfirmDialog("是否确定购买？");
-									JButton yesButton=new JButton("确定");
-				    				JButton noButton=new JButton("放弃");
-				    				
-				    				yesButton.setBounds(25, 15, 100, 50);
-				    				if(player.getMoney().getPoint()<30)
-	    								yesButton.setEnabled(false);
-				    				yesButton.addActionListener(
-				    					new ActionListener(){
-				    						public void actionPerformed(ActionEvent e){
-				    							player.getProps().add(new DollMachine());
-				    							dialog_.dispose();
-				    						}});
-				    				noButton.addActionListener(
-					    				new ActionListener(){
-					    					public void actionPerformed(ActionEvent e){
-					    						dialog_.dispose();
-					    						dialog_.setVisible(false);
-					    					}});
-				    				noButton.setBounds(165, 15, 100, 50);
-				    				dialog_.add(noButton);
-				    				
-				    				dialog_.add(yesButton);
+				    				dialogProp.dispose();
 								}
 		    					
 		    				});
 				    	 dialogProp.add(bombBtn);
 				    	 dialogProp.add(roadblockBtn);
 				    	 dialogProp.add(dollBtn);
+				    	 dialogProp.add(exitBtn);
 				    	 break;}
 				     case Cell.START:{break;}
 				     default:System.out.println("Error occerred");
@@ -476,7 +456,7 @@ public class MapFrame {
 				    }
 				   }.start();
 	}
-	private List initCell() {
+	public List initCell() {
 		List<CellView> location=new ArrayList<>();
 		//第一个是起点
 		location.add(new CellView(0,75,80,new Cell(Cell.START)));
@@ -592,7 +572,7 @@ public class MapFrame {
 		return location;
 	}
 	
-	private List initLabel() {
+	public List<JLabel> initLabel() {
 		List<JLabel> labelList=new ArrayList<>();
 		for(int i=0;i<70;i++)
 			labelList.add(new JLabel());

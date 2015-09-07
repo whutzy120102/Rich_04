@@ -30,12 +30,12 @@ import com.zy1202.rich04.model.Player;
 import com.zy1202.rich04.model.PropButton;
 import com.zy1202.rich04.model.RoadBlock;
 
-	public class MainView { 
+public class MainView { 
 
-		static private List<Player> players;
+	static private List<Player> players;
 		
 		
-		
+	
 	private JFrame jframeMain = new JFrame();
 	JLayeredPane layeredPane_1,layeredPane_2;
 	ImageIcon house_pic,location_pic,actor_pic,daojubt_pic,
@@ -51,6 +51,9 @@ import com.zy1202.rich04.model.RoadBlock;
 			JSplitPane.VERTICAL_SPLIT);
 	
 	public MapFrame mf = new MapFrame();
+	JPanel mapPanel=mf.doMain();
+	private List<JLabel> propList = mf.initLabel();
+	//private List propList5=mf.eachLocation;
 	
 	public MainView() {
 	// 设置分隔条的位置
@@ -330,7 +333,7 @@ import com.zy1202.rich04.model.RoadBlock;
 //  
 //        };  
 		
-		JPanel mapPanel=mf.doMain();
+		//JPanel mapPanel=mf.doMain();
 
 		
 		
@@ -441,7 +444,28 @@ import com.zy1202.rich04.model.RoadBlock;
 					button.getProp().useProp(-index);
 					currentPlayer.getProps().remove(button.getProp());
 					System.out.println(currentPlayer.getProps().toString());
-
+					
+					int position=(currentPlayer.getPosition()-index+70)%70;
+					CellView cellview = mf.eachLocation.get(position);
+				    JLabel label=propList.get(position);
+				    if(position>=0&&position<=28)
+						label.setBounds(cellview.getX()-7, cellview.getY()+13, 25	, 25);
+					else if(position>28&&position<=35)
+						label.setBounds(cellview.getX()-30, cellview.getY()-7, 25	, 25);
+					else if(position>35&&position<=63)
+						label.setBounds(cellview.getX()-12, cellview.getY()-24, 25	, 25);
+					else if(position>63&&position<70)
+						label.setBounds(cellview.getX()+20, cellview.getY(), 25	, 25);
+				    String propPath=null;
+				    if("炸弹".equals(button.getProp().getName()))
+				    	propPath="pic/Bomb.jpg";
+				    else
+				    	propPath="pic/RoadBlock.jpg";
+				    ImageIcon icon = new ImageIcon(propPath);  
+					label.setIcon(icon);
+					mapPanel.add(label);
+					mapPanel.repaint();
+				    
 					frame3.setVisible(false);
 					button.setText("");
 					button.removeActionListener(this);
@@ -457,6 +481,28 @@ import com.zy1202.rich04.model.RoadBlock;
 					button.getProp().useProp(+index);
 					currentPlayer.getProps().remove(button.getProp());
 					System.out.println(currentPlayer.getProps().toString());
+					
+					int position=(currentPlayer.getPosition()-index+70)%70;
+					CellView cellview = mf.eachLocation.get(position);
+				    JLabel label=propList.get(position);
+				    if(position>=0&&position<=28)
+						label.setBounds(cellview.getX()-7, cellview.getY()+13, 25	, 25);
+					else if(position>28&&position<=35)
+						label.setBounds(cellview.getX()-30, cellview.getY()-7, 25	, 25);
+					else if(position>35&&position<=63)
+						label.setBounds(cellview.getX()-12, cellview.getY()-24, 25	, 25);
+					else if(position>63&&position<70)
+						label.setBounds(cellview.getX()+20, cellview.getY(), 25	, 25);
+				    String propPath=null;
+				    if("炸弹".equals(button.getProp().getName()))
+				    	propPath="pic/Bomb.jpg";
+				    else
+				    	propPath="pic/RoadBlock.jpg";
+				    ImageIcon icon = new ImageIcon(propPath);  
+					label.setIcon(icon);
+					mapPanel.add(label);
+					mapPanel.repaint();
+					
 					frame3.setVisible(false);
 					button.setText("");
 					button.removeActionListener(this);
