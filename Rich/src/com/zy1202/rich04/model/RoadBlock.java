@@ -8,14 +8,15 @@ public class RoadBlock extends Prop{
 		super();
 		this.setName("路障");
 		this.setIntroduce("可在前后10格设置路障，经过的玩家被迫停止在该格");
-		this.setPoint(500);
+		this.setPoint(50);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void useProp(int location) {
 		// TODO Auto-generated method stub
-		GameManager.getMap().get(location).getCell().addRoadBlock();
+		System.out.println((GameManager.getCurrentPlayer().getPosition()+location+70)%70);
+		GameManager.getMap().get((GameManager.getCurrentPlayer().getPosition()+location+70)%70).getCell().addRoadBlock();
 	}
 
 }

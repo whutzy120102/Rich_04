@@ -50,4 +50,10 @@ public class House implements IHouseBO,IHouseBiz{
 		return price;
 	}
 
+	@Override
+	public int getUpPrice() {
+		// TODO Auto-generated method stub
+		return upPrice;
+	}
+
 }

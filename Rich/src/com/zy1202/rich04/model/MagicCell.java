@@ -10,6 +10,7 @@ public class MagicCell extends Cell implements IMagicCellBO,IMagicCellBiz{
 	public MagicCell(String type,List<Magic> magics) {
 		super(type);
 		this.magics=magics;
+		this.setName("魔法屋");
 		// TODO Auto-generated constructor stub
 	}
 

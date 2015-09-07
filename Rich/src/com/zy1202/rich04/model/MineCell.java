@@ -7,6 +7,7 @@ public class MineCell extends Cell implements IMineCellBO{
 	public MineCell(String type,int point) {
 		super(type);
 		this.point=point;
+		this.setName("矿地");
 		// TODO Auto-generated constructor stub
 	}
 

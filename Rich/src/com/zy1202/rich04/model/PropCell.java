@@ -9,6 +9,7 @@ public class PropCell extends Cell implements IPropCellBO{
 	public PropCell(String type,List<Prop> props) {
 		super(type);
 		this.props=props;
+		this.setName("道具屋");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -22,14 +22,14 @@ public class Money implements IMoneyBO,IMoneyBiz{
 	@Override
 	public int addCash(int cash) {
 		// TODO Auto-generated method stub
-		cash+=cash;
+		this.cash+=cash;
 		return cash;
 	}
 
 	@Override
 	public int reduceCash(int cash) {
 		// TODO Auto-generated method stub
-		cash-=cash;
+		this.cash-=cash;
 		return cash;
 	}
 
@@ -42,14 +42,14 @@ public class Money implements IMoneyBO,IMoneyBiz{
 	@Override
 	public int addPoint(int point) {
 		// TODO Auto-generated method stub
-		point+=point;
+		this.point+=point;
 		return point;
 	}
 
 	@Override
 	public int reducePoint(int point) {
 		// TODO Auto-generated method stub
-		point-=point;
+		this.point-=point;
 		return point;
 	}
 
@@ -62,14 +62,14 @@ public class Money implements IMoneyBO,IMoneyBiz{
 	@Override
 	public List<House> addHouse(House house) {
 		// TODO Auto-generated method stub
-		houses.add(house);
+		this.houses.add(house);
 		return houses;
 	}
 
 	@Override
 	public List<House> reduceHouse(House house) {
 		// TODO Auto-generated method stub
-		houses.remove(house);
+		this.houses.remove(house);
 		return houses;
 	}
 

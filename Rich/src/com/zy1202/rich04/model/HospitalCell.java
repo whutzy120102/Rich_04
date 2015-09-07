@@ -6,6 +6,7 @@ public class HospitalCell extends Cell{
 	
 	public HospitalCell(String type) {
 		super(type);
+		this.setName("医院");
 		// TODO Auto-generated constructor stub
 	}
 	

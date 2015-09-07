@@ -11,6 +11,7 @@ public class GiftCell extends Cell implements IGiftCellBO,IGiftCellBiz{
 	public GiftCell(String type,List<Gift> gifts) {
 		super(type);
 		this.gifts=gifts;
+		this.setName("礼品屋");
 		// TODO Auto-generated constructor stub
 	}
 

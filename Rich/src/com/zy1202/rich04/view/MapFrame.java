@@ -40,53 +40,38 @@ import com.zy1202.rich04.model.PropCell;
 import com.zy1202.rich04.model.RoadBlock;
 
 public class MapFrame {
-	private List<CellView> eachLocation;
-	private JFrame frame;
+	public List<CellView> eachLocation;
+	private List<JLabel> labelList;
+	
 	private JPanel panel;
 	private JButton btn;
-	private JButton btnOver;
+//	private JButton btnOver;
 	private JLabel label;
 
 	
 	public MapFrame(){
 		eachLocation=initCell();
+		labelList=initLabel();
+		
+		initLabel();
 		GameManager.initMap(eachLocation);
-		frame=new JFrame();
 		panel=null;
 		btn=new JButton();
-		btnOver=new JButton("结束回合");
-		//label=new JLabel();
-		doMain();
 	}
 	
-	public void doMain(){
-		frame.setTitle("");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(908, 608);
-		
+	public JPanel doMain(){
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕对象
 
-		//frame.getSize();//获取frame尺寸
-
-		int w=(screen.width-frame.getWidth())/2;
-		int h=(screen.height-frame.getHeight())/2;
-		
-
-		frame.setLocation(w,h);
-		
 		panel = new JPanel() {  
             protected void paintComponent(Graphics g) {  
-                ImageIcon icon = new ImageIcon("f:\\road.jpg");  
+                ImageIcon icon = new ImageIcon("pic/road.jpg");  
                 Image img = icon.getImage();  
                 g.drawImage(img, 0, 0, icon.getIconWidth(),  
                         icon.getIconHeight(), icon.getImageObserver());  
-                
-  
             }  
-  
         };  
 		panel.setSize(908,608);
-		frame.setVisible(true);
+//		frame.setVisible(true);
 		
 		Player player=null;
 		Iterator it=GameManager.getPlayers().iterator();
@@ -96,173 +81,382 @@ public class MapFrame {
 		}
 
 		btn.setBounds(370, 319, 120, 120);
-		btn.setMargin(new Insets(0, 0, 0, -10));
+		btn.setMargin(new Insets(0, 0, 0, 0));
 		btn.setBorderPainted(false);
-		//btn.setContentAreaFilled(false);
-		//ImageIcon iconBeginBtn = new ImageIcon("f:\\dice.png");  
-		//btn.setIcon(iconBeginBtn);
-		btnOver.setBounds(620, 119, 110, 20);
+		btn.setContentAreaFilled(false);
+		ImageIcon iconBeginBtn = new ImageIcon("pic/dice.png");  
+		btn.setIcon(iconBeginBtn);
+//		btnOver.setBounds(620, 119, 110, 20);
 		
 		panel.add(btn);
-		panel.add(btnOver);
+//		panel.add(btnOver);
 		panel.setLayout(null);
-		frame.add(panel);
-		btn.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-					new Thread() {
-					    public void run() {
-					    //获取随机数
-				    	 int randomNum=GameManager.getCurrentPlayer().throwDice();
+//		frame.add(panel);
+		
+		
+		return panel;
+	}
+	
+	public void click_over(){
+		btn.setEnabled(true);
+		GameManager.toNextPlayer();
+	}
+	
+	public void click(JLabel lab_cash,JLabel lab_point,JLabel lab_position){
+				new Thread() {
+				    public void run() {
+				    //获取随机数
+			    	 int randomNum=GameManager.getCurrentPlayer().throwDice();
+			    	 
+			    	 Player player=GameManager.getCurrentPlayer();
+			    	 label=player.getLabel();
+			    	 int position=player.getPosition();
+				     for(int i=0;i<randomNum;i++){
+				    	 //角色移动，一步一步移
+				    	 position++;
+				    	 if(position>69)
+				    		 position=0;
+				    	 player.setPositioin(position);
+				    	 label.setLocation(eachLocation.get(position).getX()-5,eachLocation.get(position).getY()-5);
+				    	 String filePath=null;
+				    	 switch(randomNum){
+				    	 	case 1:filePath="pic/1.png";break;
+				    	 	case 2:filePath="pic/2.png";break;
+				    	 	case 3:filePath="pic/3.png";break;
+				    	 	case 4:filePath="pic/4.png";break;
+				    	 	case 5:filePath="pic/5.png";break;
+				    	 	case 6:filePath="pic/6.png";break;
+				    	 }
+				    	 ImageIcon icon = new ImageIcon(filePath);  
+				    	 btn.setIcon(icon);
+//				    	 btn.setEnabled(false);
 				    	 
-				    	 Player player=GameManager.getCurrentPlayer();
-				    	 label=player.getLabel();
-				    	 int position=player.getPosition();
-					     for(int i=0;i<randomNum;i++){
-					    	 //角色移动，一步一步移
-					    	 position++;
-					    	 if(position>69)
-					    		 position=0;
-					    	 player.setPositioin(position);
-					    	 label.setLocation(eachLocation.get(position).getX(),eachLocation.get(position).getY());
-					    	 String filePath=null;
-					    	 switch(randomNum){
-					    	 	case 1:filePath="f:\\1.png";break;
-					    	 	case 2:filePath="f:\\2.png";break;
-					    	 	case 3:filePath="f:\\3.png";break;
-					    	 	case 4:filePath="f:\\4.png";break;
-					    	 	case 5:filePath="f:\\5.png";break;
-					    	 	case 6:filePath="f:\\6.png";break;
-					    	 }
-					    	 ImageIcon icon = new ImageIcon(filePath);  
-					    	 btn.setIcon(icon);
-					    	 btn.setEnabled(false);
-					    	 
-					    	 if(GameManager.getMap().get(position).getCell().hasRoadBlock()){
-					    		 GameManager.getMap().get(position).getCell().reduceRoadBlock();
-					    		 break;//碰到路障
-					    	 }
-					    	 try { sleep(200); } catch(Exception ex) {}
-					     
-					     }
-					     switch(GameManager.getMap().get(player.getPosition()).getCell().getType()){
-					     	case Cell.HOSPITAL:{
-					     		// HospitalCell cell=(HospitalCell)GameManager.getMap().get(GameManager.getCurrentPlayer().getPosition()).getCell();
-					     		break;}
-					     	case Cell.HOUSE:{
-					     		HouseCell cell=(HouseCell)GameManager.getMap().get(player.getPosition()).getCell();
-					    	 	if(cell.hasOwner()){//土地有主
-					    		 	if(cell.getOwner().equals(player)){
-					    			 	//TODO 弹框提示升级
-					    		 		ConfirmDialog dialogUpdate=new ConfirmDialog("是否升级现有房屋？");
-					    		 		JButton yesButton=new JButton("确定");
-					    				JButton noButton=new JButton("放弃");
-					    				yesButton.setBounds(25, 15, 100, 50);
-					    				yesButton.addActionListener(
-					    					new ActionListener(){
-					    						public void actionPerformed(ActionEvent e){
-					    							player.getMoney().reduceCash(cell.getHouse().getPrice());
-					    							cell.getHouse().upRank();
-					    							player.getMoney().addHouse(cell.getHouse());
-					    							dialogUpdate.dispose();
-					    						}});
-					    				noButton.addActionListener(
-						    				new ActionListener(){
-						    					public void actionPerformed(ActionEvent e){
-						    						dialogUpdate.dispose();
-						    					}});
-					    				noButton.setBounds(165, 15, 100, 50);
-					    				dialogUpdate.add(noButton);
-					    				
-					    				dialogUpdate.add(yesButton);
-					    		 		
-					    		 	}else{//收过路费
-					    		 		player.getMoney().reduceCash(cell.getHouse().getPrice()/2);
-					    		 		ConfirmDialog dialogUpdate=new ConfirmDialog("您需要缴纳过路费： "+cell.getHouse().getPrice()/2);
-					    		 		JButton yesButton=new JButton("确定");
-					    				
-					    				yesButton.setBounds(125, 15, 100, 50);
-					    				yesButton.addActionListener(
-					    					new ActionListener(){
-					    						public void actionPerformed(ActionEvent e){
-					    							player.getMoney().reduceCash(cell.getHouse().getPrice());
-					    							cell.getHouse().upRank();
-					    							player.getMoney().addHouse(cell.getHouse());
-					    							dialogUpdate.dispose();
-					    						}});
-
-					    				dialogUpdate.add(yesButton);
-					    		 	}
-					    	 	}else{//空地
-					    	 		//TODO 问他买不买
-
-				    		 		JDialog dialog=new ConfirmDialog("是否购买？");
-				    		 		
+				    	 if(GameManager.getMap().get(position).getCell().hasRoadBlock()){
+				    		 GameManager.getMap().get(position).getCell().reduceRoadBlock();
+				    		 break;//碰到路障
+				    	 }
+				    	 try { sleep(200); } catch(Exception ex) {}
+				     }
+				     //刷新主界面位置
+				     CellView cellView=GameManager.getMap().get(GameManager.getCurrentPlayer().getPosition());
+						if(cellView.getCell().getType()==Cell.HOUSE){
+							HouseCell cell=(HouseCell)cellView.getCell();
+							if(cell.hasOwner()){
+								lab_position.setText(cell.getOwner().getName()+"的"+cell.getHouse().getRank()+"级房子");
+							}else{
+								lab_position.setText("空地");
+							}
+							
+						}else{
+							lab_position.setText(cellView.getCell().getName());
+						}
+						
+				     switch(GameManager.getMap().get(player.getPosition()).getCell().getType()){
+				     	case Cell.HOSPITAL:{
+				     		// HospitalCell cell=(HospitalCell)GameManager.getMap().get(GameManager.getCurrentPlayer().getPosition()).getCell();
+				     		break;}
+				     	case Cell.HOUSE:{
+				     		HouseCell cell=(HouseCell)GameManager.getMap().get(player.getPosition()).getCell();
+				    	 	if(cell.hasOwner()){//土地有主
+				    		 	if(cell.getOwner().equals(player)){
+				    			 	//TODO 弹框提示升级
+				    		 		ConfirmDialog dialogUpdate=new ConfirmDialog("是否升级现有房屋？");
 				    		 		JButton yesButton=new JButton("确定");
 				    				JButton noButton=new JButton("放弃");
+				    				if(player.getMoney().getCash() < cell.getHouse().getPrice())
+				    					yesButton.setEnabled(false);
 				    				yesButton.setBounds(25, 15, 100, 50);
 				    				yesButton.addActionListener(
 				    					new ActionListener(){
 				    						public void actionPerformed(ActionEvent e){
-				    							//TODO 需要判断钱够不够
 				    							player.getMoney().reduceCash(cell.getHouse().getPrice());
-				    							cell.setOwner(player);
-				    							//System.out.println(player.getName()+"   "+player.getPosition()+"    "+(HouseCell)GameManager.getMap().get(player.getPosition()).getCell());
+				    							
+				    							lab_cash.setText("资金"+player.getMoney().getCash());
 				    							cell.getHouse().upRank();
-				    							player.getMoney().addHouse(cell.getHouse());
-				    							dialog.dispose();
+				    							int rank=cell.getHouse().getRank();
 				    							int position=player.getPosition();
 				    							CellView cellview=eachLocation.get(player.getPosition());
-				    							JLabel label=new JLabel();
+				    							JLabel label=labelList.get(position);
 				    							if(position>=0&&position<=28)
 				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
 				    							else if(position>28&&position<=35)
-				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
+				    								label.setBounds(cellview.getX()+30, cellview.getY()-7, 25	, 25);
 				    							else if(position>35&&position<=63)
-				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
+				    								label.setBounds(cellview.getX()-12, cellview.getY()+24, 25	, 25);
 				    							else if(position>63&&position<70)
-				    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
-				    							ImageIcon icon = new ImageIcon("f:\\"+player.getId()+"-1"+".png");  
+				    								label.setBounds(cellview.getX()-50, cellview.getY()+40, 25	, 25);
+				    							ImageIcon icon = new ImageIcon("pic/"+player.getId()+"-"+rank+".png");  
 				    							label.setIcon(icon);
 				    							panel.add(label);
 				    							panel.repaint();
+				    							
+				    							
+				    							dialogUpdate.dispose();
 				    						}});
 				    				noButton.addActionListener(
 					    				new ActionListener(){
 					    					public void actionPerformed(ActionEvent e){
-					    						dialog.dispose();
+					    						dialogUpdate.dispose();
 					    					}});
 				    				noButton.setBounds(165, 15, 100, 50);
-				    				dialog.add(noButton);
+				    				dialogUpdate.add(noButton);
 				    				
-				    				dialog.add(yesButton);
-					    	 	}
-					    	 	break;}
-					     	case Cell.MAGIC:{break;}
-					     	case Cell.MINE:{
-					    	 MineCell cell=(MineCell)GameManager.getMap().get(player.getPosition()).getCell();
-					    	 player.getMoney().addPoint(cell.getPoint());
-					    	 break;}
-					     	case Cell.PRISION:{
-					    	 player.addStopDay(2);
-					    	 break;}
-					     case Cell.PROP:{break;}
-					     case Cell.START:{break;}
-					     default:System.out.println("Error occerred");
-					     }
-					    }
-					   }.start();
-					  
-			}
-		});
-		btnOver.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				btn.setEnabled(true);
-				GameManager.toNextPlayer();
-			}
-		});
+				    				dialogUpdate.add(yesButton);
+				    		 		
+				    		 	}else{//收过路费
+				    		 		player.getMoney().reduceCash(cell.getHouse().getPrice()/2);
+    								lab_cash.setText("资金"+player.getMoney().getCash());
+
+	    							if(player.getMoney().getCash()>0){
+					    		 		ConfirmDialog dialogUpdate=new ConfirmDialog("您需要缴纳过路费： "+cell.getHouse().getPrice()/2);
+					    		 		JButton yesButton=new JButton("确定");
+					    				
+					    				yesButton.setBounds(90, 15, 100, 50);
+					    				yesButton.addActionListener(
+					    					new ActionListener(){
+					    						public void actionPerformed(ActionEvent e){
+					    							cell.getOwner().getMoney().addCash(cell.getHouse().getPrice());
+					    							dialogUpdate.dispose();
+					    						}});
+					    				dialogUpdate.add(yesButton);
+	    							}else{
+	    								ConfirmDialog dialogOver=new ConfirmDialog("GAME OVER");
+	    								JLabel label=new JLabel("您已经死亡！");
+	    								label.setBounds(125, 15, 100, 50);
+	    								dialogOver.add(label);
+	    								GameManager.deletePlayer(player);
+	    								if(GameManager.getPlayers().size()<=1){
+	    									label.setText("祝贺"+GameManager.getPlayers().get(0).getName()+"赢得了本局比赛的胜利！！！");
+	    								}
+	    							}
+
+				    		 	}
+				    	 	}else{//空地
+				    	 		//TODO 问他买不买
+			    		 		JDialog dialog=new ConfirmDialog("是否购买？");
+			    		 		
+			    		 		JButton yesButton=new JButton("确定");
+			    				JButton noButton=new JButton("放弃");
+			    				yesButton.setBounds(25, 15, 100, 50);
+			    				
+			    				if(player.getMoney().getCash() < cell.getHouse().getPrice())
+			    					yesButton.setEnabled(false);
+			    				yesButton.addActionListener(
+			    					new ActionListener(){
+			    						public void actionPerformed(ActionEvent e){
+			    							//TODO 需要判断钱够不够
+			    							int price=cell.getHouse().getPrice();
+			    							player.getMoney().reduceCash(price);
+			    							lab_cash.setText("资金"+player.getMoney().getCash());
+			    							System.out.print(player.getMoney().getCash());
+			    							cell.setOwner(player);
+			    							//System.out.println(player.getName()+"   "+player.getPosition()+"    "+(HouseCell)GameManager.getMap().get(player.getPosition()).getCell());
+			    							player.getMoney().addHouse(cell.getHouse());
+			    							
+			    							cell.getHouse().upRank();
+			    							dialog.dispose();
+			    							int position=player.getPosition();
+			    							CellView cellview=eachLocation.get(player.getPosition());
+			    							JLabel label=labelList.get(position);
+			    							if(position>=0&&position<=28)
+			    								label.setBounds(cellview.getX()-7, cellview.getY()-40, 25	, 25);
+			    							else if(position>28&&position<=35)
+			    								label.setBounds(cellview.getX()+30, cellview.getY()-7, 25	, 25);
+			    							else if(position>35&&position<=63)
+			    								label.setBounds(cellview.getX()-12, cellview.getY()+24, 25	, 25);
+			    							else if(position>63&&position<70)
+			    								label.setBounds(cellview.getX()-50, cellview.getY()+40, 25	, 25);
+			    							ImageIcon icon = new ImageIcon("pic/"+player.getId()+"-1.png");  
+			    							label.setIcon(icon);
+			    							panel.add(label);
+			    							panel.repaint();
+			    						}});
+			    				noButton.addActionListener(
+				    				new ActionListener(){
+				    					public void actionPerformed(ActionEvent e){
+				    						dialog.dispose();
+				    					}});
+			    				noButton.setBounds(165, 15, 100, 50);
+			    				dialog.add(noButton);
+			    				
+			    				dialog.add(yesButton);
+				    	 	}
+				    	 	break;}
+				     	case Cell.GIFT:{
+				     		switch(player.throwDice()%3){
+				     		case 0:{
+				     			player.getProps().add(new Bomb());
+				     			ConfirmDialog dialog=new ConfirmDialog("恭喜您收获炸弹一个！");
+			    		 		JButton yesButton=new JButton("确定");
+			    				
+			    				yesButton.setBounds(125, 15, 100, 50);
+			    				yesButton.addActionListener(
+			    					new ActionListener(){
+			    						public void actionPerformed(ActionEvent e){
+			    							dialog.dispose();
+			    						}});
+			    				dialog.add(yesButton);
+				     			break;
+				     		}
+				     		case 1:{
+				     			player.getProps().add(new DollMachine());
+				     			ConfirmDialog dialog=new ConfirmDialog("恭喜您收获机器娃娃一个！");
+			    		 		JButton yesButton=new JButton("确定");
+			    				
+			    				yesButton.setBounds(125, 15, 100, 50);
+			    				yesButton.addActionListener(
+			    					new ActionListener(){
+			    						public void actionPerformed(ActionEvent e){
+			    							dialog.dispose();
+			    						}});
+			    				dialog.add(yesButton);
+				     			break;
+				     		}
+				     		case 2:{
+				     			player.getProps().add(new RoadBlock());
+				     			ConfirmDialog dialog=new ConfirmDialog("恭喜您收获路障一个！");
+			    		 		JButton yesButton=new JButton("确定");
+			    				
+			    				yesButton.setBounds(125, 15, 100, 50);
+			    				yesButton.addActionListener(
+			    					new ActionListener(){
+			    						public void actionPerformed(ActionEvent e){
+			    							dialog.dispose();
+			    						}});
+			    				dialog.add(yesButton);
+				     			break;
+				     		}
+				     		}
+				     		break;}
+				     	case Cell.MINE:{
+				    	 MineCell cell=(MineCell)GameManager.getMap().get(player.getPosition()).getCell();
+				    	 player.getMoney().addPoint(cell.getPoint());
+				    	 lab_point.setText("点数："+player.getMoney().getPoint());
+				    	 break;}
+				     	case Cell.PRISION:{
+				    	 player.addStopDay(2);
+				    	 break;}
+				     case Cell.PROP:{
+				    	 JDialog dialogProp=new ConfirmDialog("请选择购买道具");
+				    	 dialogProp.setSize(500, 200);
+				    	 JButton bombBtn=new JButton("炸弹");
+				    	 JButton roadblockBtn=new JButton("路障");
+				    	 JButton dollBtn=new JButton("机器娃娃");
+				    	 JButton exitBtn=new JButton("退出");
+				    	 bombBtn.setBounds(25, 15, 100, 50);
+				    	 bombBtn.addActionListener(
+		    				new ActionListener(){
+								public void actionPerformed(ActionEvent arg0) {
+									JDialog dialog_=new ConfirmDialog("是否确定购买？");
+									JButton yesButton=new JButton("确定");
+				    				JButton noButton=new JButton("放弃");
+				    				
+				    				yesButton.setBounds(25, 15, 100, 50);
+				    				if(player.getMoney().getPoint()<50)
+	    								yesButton.setEnabled(false);
+				    				yesButton.addActionListener(
+				    					new ActionListener(){
+				    						public void actionPerformed(ActionEvent e){
+				    							player.getProps().add(new Bomb());
+				    							player.getMoney().reducePoint(50);
+				    							dialog_.dispose();
+				    						}});
+				    				noButton.addActionListener(
+					    				new ActionListener(){
+					    					public void actionPerformed(ActionEvent e){
+					    						dialog_.dispose();
+					    					}});
+				    				noButton.setBounds(165, 15, 100, 50);
+				    				dialog_.add(noButton);
+				    				
+				    				dialog_.add(yesButton);
+								}
+		    					
+		    				});
+				    	 
+				    	 roadblockBtn.setBounds(145, 15, 100, 50);
+				    	 roadblockBtn.addActionListener(
+		    				new ActionListener(){
+								public void actionPerformed(ActionEvent arg0) {
+									JDialog dialog_=new ConfirmDialog("是否确定购买？");
+									JButton yesButton=new JButton("确定");
+				    				JButton noButton=new JButton("放弃");
+				    				
+				    				yesButton.setBounds(25, 15, 100, 50);
+				    				if(player.getMoney().getPoint()<50)
+	    								yesButton.setEnabled(false);
+				    				yesButton.addActionListener(
+				    					new ActionListener(){
+				    						public void actionPerformed(ActionEvent e){
+				    							player.getProps().add(new RoadBlock());
+				    							player.getMoney().reducePoint(50);
+				    							dialog_.dispose();
+				    						}});
+				    				noButton.addActionListener(
+					    				new ActionListener(){
+					    					public void actionPerformed(ActionEvent e){
+					    						dialog_.dispose();
+					    					}});
+				    				noButton.setBounds(165, 15, 100, 50);
+				    				dialog_.add(noButton);
+				    				
+				    				dialog_.add(yesButton);
+								}
+		    					
+		    				});
+				    	 
+				    	 dollBtn.setBounds(265, 15, 100, 50);
+				    	 dollBtn.addActionListener(
+		    				new ActionListener(){
+								public void actionPerformed(ActionEvent arg0) {
+									JDialog dialog_=new ConfirmDialog("是否确定购买？");
+									JButton yesButton=new JButton("确定");
+				    				JButton noButton=new JButton("放弃");
+				    				
+				    				yesButton.setBounds(25, 15, 100, 50);
+				    				if(player.getMoney().getPoint()<30)
+	    								yesButton.setEnabled(false);
+				    				yesButton.addActionListener(
+				    					new ActionListener(){
+				    						public void actionPerformed(ActionEvent e){
+				    							player.getProps().add(new DollMachine());
+				    							player.getMoney().reducePoint(30);
+				    							dialog_.dispose();
+				    						}});
+				    				noButton.addActionListener(
+					    				new ActionListener(){
+					    					public void actionPerformed(ActionEvent e){
+					    						dialog_.dispose();
+					    						dialog_.setVisible(false);
+					    					}});
+				    				noButton.setBounds(165, 15, 100, 50);
+				    				dialog_.add(noButton);
+				    				
+				    				dialog_.add(yesButton);
+								}
+		    					
+		    				});
+				    	 
+				    	 exitBtn.setBounds(365, 15, 80, 50);
+				    	 exitBtn.addActionListener(
+		    				new ActionListener(){
+								public void actionPerformed(ActionEvent arg0) {
+				    				dialogProp.dispose();
+								}
+		    					
+		    				});
+				    	 dialogProp.add(bombBtn);
+				    	 dialogProp.add(roadblockBtn);
+				    	 dialogProp.add(dollBtn);
+				    	 dialogProp.add(exitBtn);
+				    	 break;}
+				     case Cell.START:{break;}
+				     default:System.out.println("Error occerred");
+				     }
+				    }
+				   }.start();
 	}
-	
-	private List initCell() {
+	public List initCell() {
 		List<CellView> location=new ArrayList<>();
 		//第一个是起点
 		location.add(new CellView(0,75,80,new Cell(Cell.START)));
@@ -376,5 +570,12 @@ public class MapFrame {
 		location.add(new CellView(69,75,148,new MineCell(Cell.MINE, 60)));
 		
 		return location;
+	}
+	
+	public List<JLabel> initLabel() {
+		List<JLabel> labelList=new ArrayList<>();
+		for(int i=0;i<70;i++)
+			labelList.add(new JLabel());
+		return labelList;
 	}
 }
