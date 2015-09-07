@@ -15,7 +15,8 @@ public class RoadBlock extends Prop{
 	@Override
 	public void useProp(int location) {
 		// TODO Auto-generated method stub
-		GameManager.getMap().get(location).getCell().addRoadBlock();
+		System.out.println((GameManager.getCurrentPlayer().getPosition()+location+70)%70);
+		GameManager.getMap().get((GameManager.getCurrentPlayer().getPosition()+location+70)%70).getCell().addRoadBlock();
 	}
 
 }

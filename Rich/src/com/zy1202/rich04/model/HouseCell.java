@@ -9,6 +9,7 @@ public class HouseCell extends Cell implements IHouseCellBO,IHouseCellBiz{
 	public HouseCell(String type,House house) {
 		super(type);
 		this.house=house;
+		this.setName("房屋");
 		// TODO Auto-generated constructor stub
 	}
 

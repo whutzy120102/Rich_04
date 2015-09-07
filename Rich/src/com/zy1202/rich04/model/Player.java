@@ -35,6 +35,7 @@ public class Player implements IPlayerBO,IPlayerBiz{
 		this.position=0;
 		this.props=new ArrayList<Prop>();
 		this.label=label;
+	
 	}
 
 	@Override

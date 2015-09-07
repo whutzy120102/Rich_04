@@ -9,4 +9,6 @@ public interface ICellBiz {
 	void addRoadBlock();
 	void moveAllRoadBlock();
 	void reduceRoadBlock();
+	void setName(String name);
+	String getName();
 }

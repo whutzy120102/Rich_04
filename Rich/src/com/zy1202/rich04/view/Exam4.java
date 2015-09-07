@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.zy1202.rich04.manager.GameManager;
 import com.zy1202.rich04.model.Bomb;
 import com.zy1202.rich04.model.Money;
 import com.zy1202.rich04.model.Player;
@@ -23,76 +24,77 @@ import com.zy1202.rich04.model.Prop;
 
 
 public class Exam4{
-	static JFrame frame = new JFrame();
-	static private List<Player> players=new ArrayList<>();
+	//static JFrame frame = new JFrame();
+	static private List<Player> players;
 	
 	
-	public static void main(String[] args) {
+	public JPanel bottomBut() {
 		//add players
-		Player player1=new Player(1, "banzi", "b", Color.BLUE, new Money(100, 0),null);
-		Player player2=new Player(2, "yc", "b", Color.green, new Money(0, 0),null);
-		Player player3=new Player(3, "wgl", "b", Color.PINK, new Money(100, 0),null);
-		Player player4=new Player(4, "wgl", "b", Color.BLUE, new Money(100, 0),null);
+//		Player player1=new Player(1, "banzi", "b", Color.BLUE, new Money(100, 0),null);
+//		Player player2=new Player(2, "yc", "b", Color.BLUE, new Money(0, 0),null);
+//		Player player3=new Player(3, "wgl", "b", Color.BLUE, new Money(100, 0),null);
+//		Player player4=new Player(4, "wgl", "b", Color.BLUE, new Money(100, 0),null);
+//		
+//		player1.getProps().add(new Bomb());
+//		player1.getProps().add(new Bomb());
+//		player1.getProps().add(new Bomb());
+//		
+//		player2.getProps().add(new Bomb());
+//		player2.getProps().add(new Bomb());
+//		player2.getProps().add(new Bomb());
+//
+//		players.add(player1);
+//		players.add(player2);
+//		players.add(player3);
+		players=GameManager.getPlayers();
 		
-		player1.getProps().add(new Bomb());
-		player1.getProps().add(new Bomb());
-		player1.getProps().add(new Bomb());
 		
-		player2.getProps().add(new Bomb());
-		player2.getProps().add(new Bomb());
-		player2.getProps().add(new Bomb());
-
-		players.add(player1);
-		players.add(player2);
-		players.add(player3);
+		//frame.setSize(800,300);             //第一个窗口
+		//frame.setLocation(500,200);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-		frame.setSize(800,300);             //第一个窗口
-		frame.setLocation(500,200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		Container container=frame.getContentPane();
-		container.setBackground(Color.white);   //容器
-		container.setLayout(null);
+//		Container container=frame.getContentPane();
+//		container.setBackground(Color.white);   //容器
+//		container.setLayout(null);
 		
 		JPanel pnl=new JPanel();
 		pnl.setSize(760,250);                  //面板
 		pnl.setBackground(Color.white);
 		pnl.setLocation(1,1);
-		
 		for(int i=0;i<players.size();i++){
 		
 		JButton button =new JButton("" +i);
 		button.setSize(123,124);                                 //按钮  
-		button.setLocation(10+200*i,40);
+		button.setLocation(10+200*i,0);
 		ImageIcon icon=new ImageIcon("pic/actor_"+players.get(i).getId()+".jpg");
 		button.setIcon(icon);
 		button.setText(i+"");
 		
 		JLabel lae=new JLabel();
 		lae.setText(players.get(i).getName());
-		lae.setForeground(players.get(i).getColor());
-		lae.setBounds(45+200*i,160,100,30);
+		lae.setBounds(45+200*i,icon.getIconHeight()+1,100,30);
 		Font fnt1=new Font("楷体",Font.BOLD,13);
 		lae.setFont(fnt1);
-		
+		lae.setForeground(players.get(i).getColor());
 		pnl.setLayout(null);
 		pnl.add(button);
 		pnl.add(lae);
-		container.add(button);
-		container.add(lae);
-		frame.setVisible(true);
+		String name=players.get(i).getName();
+		
+		//container.add(button);
+		//container.add(lae);
+		//frame.setVisible(true);
 		
 		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				
 				GridLayout grid1=new GridLayout(4,5);   //grid布局 
 				JFrame frame1 = new JFrame();
-				frame1.setTitle("玩家详细信息");            //第二个窗口
+				frame1.setTitle(name+"的信息");            //第二个窗口
 				frame1.setLocation(250,250);
 				frame1.setSize(500,300);
-				frame1.setResizable(false);
 				frame1.setVisible(true);
+				frame1.setResizable(false);
 				
 				
 				Container container1=frame1.getContentPane();//容器
@@ -131,15 +133,12 @@ public class Exam4{
 				
 				for(int i=0;i<player.getProps().size();i++){
 					btn[i].setText(player.getProps().get(i).getName());
-					btn[i].setForeground(Color.red);
-					Font font=new Font("宋体",Font.BOLD,15);
-					btn[i].setFont(font);
 				}
 				
-				lbl[0].setForeground(Color.BLACK);
-				lbl[3].setForeground(Color.BLACK);
-				lbl[5].setForeground(Color.BLACK);
-				Font fnt=new Font("TimesRoman",Font.BOLD,17);
+				lbl[0].setForeground(Color.BLUE);
+				lbl[3].setForeground(Color.BLUE);
+				lbl[5].setForeground(Color.BLUE);
+				Font fnt=new Font("楷体",Font.BOLD,20);
 				lbl[0].setFont(fnt);
 				lbl[3].setFont(fnt);
 				lbl[5].setFont(fnt);
@@ -154,6 +153,7 @@ public class Exam4{
 		
 		
 		}
+		return pnl;
 		
 		
 	}

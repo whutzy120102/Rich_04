@@ -15,7 +15,8 @@ public class Bomb extends Prop{
 	@Override
 	public void useProp(int location) {
 		// TODO Auto-generated method stub
-		GameManager.getMap().get(location).getCell().addBomb();
+		System.out.println((GameManager.getCurrentPlayer().getPosition()+location+70)%70);
+		GameManager.getMap().get((GameManager.getCurrentPlayer().getPosition()+location+70)%70).getCell().addBomb();
 	}
 
 }
