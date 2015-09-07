@@ -8,7 +8,7 @@ public class DollMachine extends Prop{
 		super();
 		this.setName("机器娃娃");
 		this.setIntroduce("清除前方10格所有道具");
-		this.setPoint(300);
+		this.setPoint(30);
 		// TODO Auto-generated constructor stub
 	}
 

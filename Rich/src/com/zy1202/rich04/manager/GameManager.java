@@ -1,10 +1,13 @@
 package com.zy1202.rich04.manager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.zy1202.rich04.bo.IPlayerBO;
 import com.zy1202.rich04.model.Cell;
+import com.zy1202.rich04.model.House;
+import com.zy1202.rich04.model.HouseCell;
 import com.zy1202.rich04.model.Player;
 import com.zy1202.rich04.view.CellView;
 
@@ -50,6 +53,17 @@ public class GameManager {
 	
 	private void _deletePlayer(Player player){
 		players.remove(player);
+		Iterator it=this.getMap().iterator();
+		while(it.hasNext()){
+			CellView cellview=(CellView)it.next();
+			
+			if(Cell.HOUSE.equals(cellview.getCell().getType())){
+				HouseCell houseCell = (HouseCell)cellview.getCell();
+				houseCell.setOwner(null);
+				int price = houseCell.getHouse().getUpPrice();
+				houseCell.setHouse(new House(price));
+			}
+		}
 	}
 	
 	private List<Player> _getPlayers(){
@@ -57,7 +71,7 @@ public class GameManager {
 	}
 	
 	private void _toNextPlayer(){
-		if(currentPlayer==players.size()-1){
+		if(currentPlayer>=players.size()-1){
 			currentPlayer=0;
 		}else{
 			currentPlayer++;

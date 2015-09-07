@@ -2,32 +2,46 @@ package com.zy1202.rich04.view;
 
 
 
+import java.awt.Container;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 
 import com.zy1202.rich04.manager.GameManager;
+import com.zy1202.rich04.model.Bomb;
 import com.zy1202.rich04.model.Cell;
+import com.zy1202.rich04.model.DollMachine;
 import com.zy1202.rich04.model.HouseCell;
 import com.zy1202.rich04.model.Player;
+import com.zy1202.rich04.model.RoadBlock;
 
 	public class MainView { 
 
+		static private List<Player> players;
+		
+		
+		
 	private JFrame jframeMain = new JFrame();
 	JLayeredPane layeredPane_1,layeredPane_2;
 	ImageIcon house_pic,location_pic,actor_pic,daojubt_pic,
 	magicbt_pic,touzibt_pic,overbt_pic,buybt_pic,helpbt_pic,exitbt_pic;
 	JButton daojubt,magicbt,touzibt,overbt,buybt,helpbt,exitbt;
 	JLabel j1,j2,actor_now,house;
+	int index;
+	int t;
 
 	// 用于分割两个（只能两个）component
 	private JSplitPane jsplitPaneTestOne = new JSplitPane();
@@ -186,6 +200,249 @@ import com.zy1202.rich04.model.Player;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//使用道具点击事件响应
+				
+				GridLayout grid=new GridLayout(2,5);
+				JFrame frame2=new JFrame();
+				frame2.setTitle("道具");
+				frame2.setLocation(250,250);
+				frame2.setSize(500,300);
+				frame2.setVisible(true);
+				frame2.setResizable(false);
+				
+				Container container1=frame2.getContentPane();//容器
+				container1.setLayout(grid);
+				
+				JButton[] btn=new JButton[10];
+		
+//				Player player=GameManager.getCurrentPlayer();
+				Player player=new Player(1, "1", "1", null, null, null);
+				player.getProps().add(new DollMachine());
+				player.getProps().add(new Bomb());
+				player.getProps().add(new RoadBlock());
+				
+				btn[0]=new JButton();
+				btn[1]=new JButton();
+				btn[2]=new JButton();
+				btn[3]=new JButton();
+				btn[4]=new JButton();
+				btn[5]=new JButton();
+				btn[6]=new JButton();
+				btn[7]=new JButton();
+				btn[8]=new JButton();
+				btn[9]=new JButton();
+				
+			for(int i=0;i<player.getProps().size();i++){
+				btn[i].setText(player.getProps().get(i).getName());
+				
+				t=i;
+				btn[i].addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						
+						
+							
+						JButton button=(JButton)e.getSource();
+						
+						
+						
+						switch(button.getText()){
+						case "机器娃娃":{
+							
+							GridLayout grid1=new GridLayout(4,1);
+							JFrame frame3=new JFrame();
+							frame3.setLocation(400,250);
+							frame3.setSize(300,300);
+							frame3.setResizable(false);
+							
+							Container container=frame3.getContentPane();//容器
+							container.setLayout(grid1);
+							
+							JLabel lab1=new JLabel("清除前方10格所有道具");
+							JLabel lab2=new JLabel();
+							JLabel lab3=new JLabel();
+							JButton bttn1=new JButton("使用");
+							bttn1.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									player.getProps().get(t).useProp(0);
+									player.getProps().remove(player.getProps().get(t));
+									btn[t].setText("");
+									btn[t].removeActionListener(this);
+									frame2.validate();
+									frame3.setVisible(false);
+									
+								}
+							});
+							
+							container.add(lab1);
+							container.add(lab2);
+							container.add(lab3);
+							container.add(bttn1);
+							frame3.setVisible(true);
+							
+							break;
+						}
+						
+						
+						
+						
+						case "炸弹" :{
+							
+							GridLayout grid1=new GridLayout(4,1);
+							JFrame frame3=new JFrame();
+							frame3.setLocation(400,250);
+							frame3.setSize(300,300);
+							frame3.setResizable(false);
+							
+							Container container=frame3.getContentPane();//容器
+							container.setLayout(grid1);
+							
+							String[] data={"0","1","2","3","4","5","6","7","8","9","10"};
+							
+							JLabel lab1=new JLabel("可放置在前后10格，走到格子上时被扎伤送医院休息三个回合");
+							JComboBox jc=new JComboBox(data);
+							
+							jc.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									JComboBox jb=(JComboBox)e.getSource();
+									index=jb.getSelectedIndex();
+									System.out.println(index);
+								}
+							});
+							JButton bttn1=new JButton("在前面使用");
+							bttn1.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									
+									player.getProps().get(t).useProp(-index);
+									player.getProps().remove(player.getProps().get(t));
+									frame3.setVisible(false);
+									btn[t].setText("");
+									btn[t].removeActionListener(this);
+									frame2.validate();
+									
+								}
+							});
+							JButton bttn2=new JButton("在后面使用");
+							bttn2.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									player.getProps().get(t).useProp(index);
+									player.getProps().remove(player.getProps().get(t));
+									frame3.setVisible(false);
+									btn[t].setText("");
+									btn[t].removeActionListener(this);
+									frame2.validate();
+								}
+							});
+							
+							
+							container.add(lab1);
+							container.add(jc);
+							container.add(bttn1);
+							container.add(bttn2);
+							frame3.setVisible(true);
+							
+							break;
+						}
+						
+						
+						
+						
+						case "路障" :{ 
+							
+							
+							GridLayout grid1=new GridLayout(4,1);
+							JFrame frame3=new JFrame();
+							frame3.setLocation(400,250);
+							frame3.setSize(300,300);
+							frame3.setResizable(false);
+							
+							Container container=frame3.getContentPane();//容器
+							container.setLayout(grid1);
+							
+							String[] data={"0","1","2","3","4","5","6","7","8","9","10"};
+							
+							JLabel lab1=new JLabel("可在前后10格设置路障，经过的玩家被迫停止在该格");
+							JComboBox jc=new JComboBox(data);
+							jc.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									JComboBox jb=(JComboBox)e.getSource();
+									index=jb.getSelectedIndex();
+									System.out.println(index);
+
+								}
+							});
+							JButton bttn1=new JButton("在前面使用");
+							bttn1.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									player.getProps().get(t).useProp(-index);
+									player.getProps().remove(player.getProps().get(t));
+									
+									frame3.setVisible(false);
+									
+									btn[t].setText("");
+									btn[t].removeActionListener(this);
+									frame2.validate();
+								}
+							});
+							JButton bttn2=new JButton("在前面使用");
+							bttn2.addActionListener(new ActionListener() {
+								
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									// TODO Auto-generated method stub
+									player.getProps().get(t).useProp(index);
+									player.getProps().remove(player.getProps().get(t));
+									frame3.setVisible(false);
+									btn[t].setText("");
+									btn[t].removeActionListener(this);
+									frame2.validate();
+								}
+							});
+							
+							container.add(lab1);
+							container.add(jc);
+							container.add(bttn1);
+							container.add(bttn2);
+							frame3.setVisible(true);
+							
+							
+							break;
+						}
+						default:break;
+						}
+						
+						
+						
+					}
+					
+					
+					
+					
+					
+				});
+				
+				
+				}
+				
+				for(int t=0;t<10;t++){container1.add(btn[t]);}
+				
+				
 			}
 		});
 		
